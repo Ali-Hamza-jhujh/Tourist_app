@@ -1,0 +1,160 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Booking Receipt</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f1f8ff;
+      margin: 0;
+      padding: 2rem;
+      color: #1a237e;
+    }
+
+    .receipt-container {
+      background: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      max-width: 850px;
+      margin: auto;
+      padding: 2rem;
+    }
+
+    h2 {
+      text-align: center;
+      color: #0d47a1;
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .generated-time {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 2rem;
+    }
+
+    .total {
+      text-align: center;
+      font-size: 1.4rem;
+      font-weight: bold;
+      margin-bottom: 2rem;
+      color: #2e7d32;
+    }
+
+    .booking-item {
+      background: #e3f2fd;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-left: 5px solid #42a5f5;
+      border-radius: 8px;
+    }
+
+    .booking-item p {
+      margin: 5px 0;
+    }
+
+    .download-btn {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.75rem 1.5rem;
+      background: #2196f3;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 8px;
+      text-align: center;
+      transition: background 0.3s;
+    }
+
+    .download-btn:hover {
+      background: #1976d2;
+    }
+
+    .code-section {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .code-section h3 {
+      margin-bottom: 1rem;
+      color: #0d47a1;
+    }
+
+    .codes {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .codes div {
+      text-align: center;
+    }
+
+    .codes img {
+      border: 2px solid #0d47a1;
+      border-radius: 10px;
+      padding: 5px;
+      background: #fff;
+    }
+
+    @media screen and (max-width: 600px) {
+      .download-btn {
+        width: 70%;
+      }
+
+      .codes {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="receipt-container">
+    <h2>🧾 Receipt for Transaction: {{ trx_id }}</h2>
+    <div class="generated-time">🗓️ Generated on: {{ now|date:"D, d M Y H:i" }}</div>
+    <div class="total">Total Paid: Rs {{ total_amount }}</div>
+
+    {% for booking in bookings %}
+      <div class="booking-item">
+        <p><strong>🏨 Hotel:</strong> {{ booking.hotel.name }}</p>
+        <p><strong>📦 Quantity:</strong> {{ booking.quantity }}</p>
+        <p><strong>💰 Subtotal:</strong> Rs {{ booking.subtotal }}</p>
+        <p><strong>📍 City:</strong> {{ booking.city.city }}</p>
+      </div>
+    {% endfor %}
+
+    <div class="code-section">
+      <h3>🔒 Secure Booking Information</h3>
+      <div class="codes">
+        {% if qr_image %}
+          <div>
+            <p><strong>📷 QR Code</strong></p>
+            <img src="data:image/png;base64,{{ qr_image }}" alt="QR Code" width="130" height="130">
+          </div>
+        {% else %}
+          <p>QR code not available.</p>
+        {% endif %}
+
+        {% if barcode_image %}
+          <div>
+            <p><strong>📦 Barcode</strong></p>
+            <img src="data:image/png;base64,{{ barcode_image }}" alt="Barcode" width="250" height="80">
+          </div>
+        {% else %}
+          <p>Barcode not available.</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <div style="text-align: center;">
+      <a class="download-btn" href="{% url 'download_receipt' trx_id=trx_id %}">📄 Download PDF Receipt</a>
+    </div>
+    <p><a href="{% url 'admin_transactions' %}">View all transactions</a></p>
+  </div>
+</body>
+</html>

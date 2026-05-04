@@ -1,0 +1,275 @@
+{% extends 'base.htm' %}
+{% block content %}
+{% load static %}
+
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #ede7f6;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 3rem auto;
+    background: #fff;
+    padding: 3rem 2rem 4rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  header h1 {
+    font-size: 3rem;
+    color: #6a1b9a;
+    margin-bottom: 1rem;
+  }
+
+  header p {
+    font-size: 1.2rem;
+    color: #555;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  section.attraction {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-bottom: 4rem;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 2rem;
+  }
+
+  .image-container {
+    flex: 1 1 400px;
+    max-width: 400px;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    transition: transform 0.4s ease;
+  }
+
+  .image-container img {
+    width: 100%;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .image-container:hover img {
+    transform: scale(1.05);
+  }
+
+  .attraction-details {
+    flex: 1 1 500px;
+  }
+
+  .attraction-details h2 {
+    color: #4a148c;
+    margin-bottom: 0.6rem;
+  }
+
+  .attraction-details p {
+    font-size: 1.1rem;
+    color: #444;
+    line-height: 1.6;
+  }
+
+  .highlight-box {
+    background: linear-gradient(135deg, #d1c4e9, #b39ddb);
+    padding: 1.5rem;
+    border-radius: 15px;
+    text-align: center;
+    font-weight: 600;
+    font-style: italic;
+    color: #4a148c;
+    box-shadow: 0 8px 25px rgba(74, 20, 140, 0.15);
+  }
+
+  #fullscreenModal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    text-align: center;
+  }
+
+  #fullscreenModal img {
+    max-width: 90%;
+    max-height: 90%;
+    margin-top: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(255,255,255,0.2);
+  }
+
+  #fullscreenModal span {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+  }
+</style>
+
+
+<div class="container">
+  <header>
+    <h1>Explore Skardu – Hidden Gem of Pakistan</h1>
+    <p>Skardu offers a magical blend of majestic mountains, serene lakes, and centuries-old culture. Discover the top places that make Skardu a paradise for nature lovers, trekkers, and explorers.<p style="color: red; text-align: center; "> To explore more about Skardu Visit. <a style="color: blue; font-size: 20px; text-align: center;" href="{% url 'chatbot_page' %}">ChatBot</a></p></p>
+  </header>
+
+  <!-- Each tourist spot wrapped in proper UI section -->
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/Deosai_nationalPark.jpg' %}" alt="Deosai National Park" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Deosai National Park</h2>
+      <p>Known as the “Land of Giants,” Deosai is one of the highest plateaus in the world. The park is home to rare wildlife, lush meadows, and breathtaking views, making it a must-visit destination for nature lovers and adventurers alike.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/K2_basecamp.jpg' %}" alt="K2 Base Camp" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>K2 Base Camp</h2>
+      <p>For thrill-seekers and trekkers, the journey to the base of the world’s second-highest mountain, K2, is a life-changing experience. The trail winds through glaciers, rivers, and majestic mountain landscapes.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/Kachura_lake.jpg' %}" alt="Kachura Lake" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Kachura Lake</h2>
+      <p>Located near Skardu, Kachura Lake is divided into Upper and Lower parts. It’s famous for its crystal-clear waters, trout fish, and the peaceful ambiance perfect for boating and relaxation.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/Kharphocho_fort.jpg' %}" alt="Kharphocho Fort" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Kharphocho Fort</h2>
+      <p>Perched on a cliff, this ancient fort offers panoramic views of Skardu town and the confluence of the Indus and Shigar Rivers. It's a historical site with roots going back to the 16th century.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/Manthal_bhuda.jpg' %}" alt="Manthal Buddha Rock" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Manthal Buddha Rock</h2>
+      <p>This ancient Buddhist carving dates back to the 8th century and is a symbol of Skardu’s historical connections to Buddhism before the arrival of Islam. It’s a cultural heritage site surrounded by mountains.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/Manthokha_waterfall.jpg' %}" alt="Manthokha Waterfall" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Manthokha Waterfall</h2>
+      <p>One of the most stunning waterfalls in Pakistan, Manthokha Waterfall is located in Kharmang Valley. The 180-feet high waterfall is surrounded by green pastures, grazing yaks, and peaceful mountain vibes.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/sangrila.jpg' %}" alt="Shangrila Resort" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Shangrila Resort</h2>
+      <p>Also known as “Heaven on Earth,” this iconic resort features a heart-shaped lake, luxurious stay, and surreal mountain scenery. It's a favorite among honeymooners and luxury tourists.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/Satpara_lake.jpg' %}" alt="Satpara Lake" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Satpara Lake</h2>
+      <p>Satpara Lake is a serene glacial lake near Skardu, supplying water to the entire town. Surrounded by hills and ideal for boating, the lake also provides a peaceful escape from urban life.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/Sheosar_lake.jpg' %}" alt="Sheosar Lake" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Sheosar Lake</h2>
+      <p>Located in Deosai Plains, Sheosar Lake is one of the most beautiful high-altitude lakes in the world. On a clear day, it reflects the snowy peak of Nanga Parbat, creating postcard-perfect views.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/Skardu_baltistan.jpg' %}" alt="Skardu Baltistan" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Skardu Baltistan Culture</h2>
+      <p>Baltistan is rich in Tibetan-influenced traditions, food, music, and hospitality. Explore the local culture through its traditional dress, wooden houses, apricot orchards, and warm-hearted people.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/Skardu_katpana.jpg' %}" alt="Katpana Desert" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Katpana Cold Desert</h2>
+      <p>Known as the Cold Desert of Skardu, this surreal landscape features sand dunes covered with snow in winter. It’s one of the highest deserts in the world, offering a unique blend of terrain.</p>
+    </div>
+  </section>
+
+  <section class="highlight-box">
+    <p>Visit Skardu to witness the magic of Pakistan’s northern frontier where nature, culture, and adventure collide!</p>
+    <h6>CEO: Ali Hamza</h6>
+  </section>
+</div>
+
+
+<div id="fullscreenModal">
+  <span onclick="closeModal()">&times;</span>
+  <img id="modalImage" src="" alt="Fullscreen Image">
+</div>
+
+<script>
+  function modelimage(imgElement) {
+    const modal = document.getElementById("fullscreenModal");
+    const modalImg = document.getElementById("modalImage");
+    modal.style.display = "block";
+    modalImg.src = imgElement.src;
+  }
+
+  function closeModal() {
+    document.getElementById("fullscreenModal").style.display = "none";
+  }
+
+  document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+      closeModal();
+    }
+  });
+</script>
+{% endblock %}

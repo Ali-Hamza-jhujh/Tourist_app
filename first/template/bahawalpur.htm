@@ -1,0 +1,281 @@
+{% extends 'base.htm' %}
+{% block title %}Bahawalpur{% endblock %}
+{% block content %}
+{% load static %}
+
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f4f9f8;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 3rem auto;
+    background: #fff;
+    padding: 3rem 2rem 4rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  header h1 {
+    font-size: 3rem;
+    color: #37474f;
+    margin-bottom: 1rem;
+  }
+
+  header p {
+    font-size: 1.2rem;
+    color: #555;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  section.attraction {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-bottom: 4rem;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 2rem;
+  }
+
+  .image-container {
+    flex: 1 1 400px;
+    max-width: 400px;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    transition: transform 0.4s ease;
+  }
+
+  .image-container img {
+    width: 100%;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .image-container:hover img {
+    transform: scale(1.05);
+  }
+
+  .attraction-details {
+    flex: 1 1 500px;
+  }
+
+  .attraction-details h2 {
+    color: #263238;
+    margin-bottom: 0.6rem;
+  }
+
+  .attraction-details p {
+    font-size: 1.1rem;
+    color: #444;
+    line-height: 1.6;
+  }
+
+  .highlight-box {
+    background: linear-gradient(135deg, #b2ebf2, #80deea);
+    padding: 1.5rem;
+    border-radius: 15px;
+    text-align: center;
+    font-weight: 600;
+    font-style: italic;
+    color: #00796b;
+    box-shadow: 0 8px 25px rgba(0, 121, 107, 0.15);
+  }
+   #fullscreenModal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    text-align: center;
+  }
+
+  #fullscreenModal img {
+    max-width: 90%;
+    max-height: 90%;
+    margin-top: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(255,255,255,0.2);
+  }
+
+  #fullscreenModal span {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+  }
+</style>
+
+<div class="container">
+  <header>
+    <h1>Top Tourist Attractions in Bahawalpur, Pakistan</h1>
+    <p>Bahawalpur is a historical city in southern Punjab known for its palaces, forts, deserts, and the royal heritage of the Nawabs.<p style="color: red;"> To explore more about Bahawalpur Visit. <a style="color: blue; font-size: 20px;" href="{% url 'chatbot_page' %}">ChatBot</a></p></p>
+  </header>
+
+  <!-- Noor Mahal -->
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/noor_mahal.jpg' %}" alt="Noor Mahal" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Noor Mahal</h2>
+      <p>A stunning palace built in the Italian style by the Nawab of Bahawalpur. It now serves as a museum with well-preserved royal relics.</p>
+    </div>
+  </section>
+
+  <!-- Derawar Fort -->
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/derawar_fort.jpg' %}" alt="Derawar Fort" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Derawar Fort</h2>
+      <p>A majestic desert fort in the Cholistan Desert, with massive walls and deep historical roots dating back centuries.</p>
+    </div>
+  </section>
+
+  <!-- Bahawalpur Central Library -->
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/central_library.jpg' %}" alt="Central Library Bahawalpur" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Central Library Bahawalpur</h2>
+      <p>One of Pakistan’s oldest public libraries, founded in 1924, known for its colonial architecture and vast literary collections.</p>
+    </div>
+  </section>
+
+  <!-- Lal Suhanra -->
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/lal_sohanra.jpg' %}" alt="Lal Suhanra National Park" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Lal Suhanra National Park</h2>
+      <p>A biosphere reserve with forests, desert, and wetlands — perfect for wildlife spotting, bird watching, and peaceful walks in nature.</p>
+    </div>
+  </section>
+
+  <!-- Gulzar Mahal -->
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/Gulzar_Mahal.png' %}" alt="Gulzar Mahal" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Gulzar Mahal</h2>
+      <p>A lesser-known but beautiful palace built during the reign of Nawab Sadiq Muhammad Khan. Features stunning Indo-European design.</p>
+    </div>
+  </section>
+
+  <!-- Abbasi Mosque -->
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/abbasi_mosque.jpg' %}" alt="Abbasi Mosque" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Abbasi Mosque</h2>
+      <p>Located near Derawar Fort, this white marble mosque reflects Mughal architectural influences and is a serene place of worship with elegant domes and minarets.</p>
+    </div>
+  </section>
+
+  <!-- Bahawalpur Museum -->
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/bahawalpur_museum.jpg' %}" alt="Bahawalpur Museum" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Bahawalpur Museum</h2>
+      <p>Showcases archaeological, Islamic, and regional exhibits including artwork, manuscripts, and artifacts from the Bahawalpur State era.</p>
+    </div>
+  </section>
+
+  <!-- Cholistan Desert -->
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/cholistan_desert.jpg' %}" alt="Cholistan Desert" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Cholistan Desert</h2>
+      <p>Stretching over 25,000 square kilometers, this desert offers jeep rallies, camel rides, desert camping, and a glimpse into the nomadic lifestyle.</p>
+    </div>
+  </section>
+
+  <!-- Darbar Mahal -->
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/darbar_mahal.jpg' %}" alt="Darbar Mahal" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Darbar Mahal</h2>
+      <p>A red-brick royal palace with striking Indo-Saracenic architecture, built in the early 20th century. Now under army administration but still admired from the outside.</p>
+    </div>
+  </section>
+
+  <!-- SS World Family Park -->
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/SS_World_Family_park.jpg' %}" alt="SS World Family Park" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>SS World Family Park</h2>
+      <p>A modern recreational park with rides, attractions, food courts, and entertainment — perfect for families and children.</p>
+    </div>
+  </section>
+
+  <!-- Uch Sharif -->
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/uch_sharif.jpg' %}" alt="Uch Sharif" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Uch Sharif</h2>
+      <p>One of the oldest cities in South Asia, Uch Sharif is renowned for its ancient shrines and tombs built in Central Asian and Islamic architectural styles.</p>
+    </div>
+  </section>
+
+  <section class="highlight-box">
+    <p><strong>Visit Bahawalpur:</strong> A royal city offering architectural wonders, desert adventures, and a unique cultural heritage.</p>
+    <h6>CEO: Ali hamza</h6>
+  </section>
+</div>
+<div id="fullscreenModal">
+  <span onclick="closeModal()">&times;</span>
+  <img id="modalImage" src="" alt="Fullscreen Image">
+</div>
+<script>
+  function modelimage(imgElement) {
+    const modal = document.getElementById("fullscreenModal");
+    const modalImg = document.getElementById("modalImage");
+    modal.style.display = "block";
+    modalImg.src = imgElement.src;
+  }
+
+  function closeModal() {
+    document.getElementById("fullscreenModal").style.display = "none";
+  }
+
+  document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+      closeModal();
+    }
+  });
+</script>
+{% endblock %}

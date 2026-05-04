@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}My Site{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        nav {
+            background-color: #2c3e50;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 8px 14px;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+        }
+
+        .nav-links a:hover {
+            background-color: #34495e;
+        }
+
+        .btn {
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 8px;
+            transition: 0.3s;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .btn-success {
+            background-color: #27ae60;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #2ecc71;
+        }
+
+        .btn-danger {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+
+        /* Hamburger */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            height: 3px;
+            width: 26px;
+            background: white;
+            margin: 4px 0;
+            border-radius: 2px;
+            transition: 0.4s;
+        }
+
+        @media screen and (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background-color: #2c3e50;
+                flex-direction: column;
+                gap: 12px;
+                padding: 20px 0;
+                display: none;
+                animation: slideIn 0.3s ease forwards;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                font-size: 18px;
+                width: 100%;
+                padding: 12px;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #messages {
+            list-style: none;
+            padding: 0;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            max-width: 300px;
+        }
+
+        #messages li {
+            color: white;
+            padding: 12px 20px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-weight: bold;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            position: relative;
+            animation: fadein 0.5s ease;
+        }
+
+        #messages li span {
+            font-weight: normal;
+            font-size: 18px;
+        }
+
+        .success {
+            background-color: #28a745;
+        }
+
+        .error {
+            background-color: #dc3545;
+        }
+
+        .warning {
+            background-color: #ffc107;
+            color: black;
+        }
+
+        .info {
+            background-color: #17a2b8;
+        }
+
+        @keyframes fadein {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    
+    {% block style %}{% endblock %}
+</head>
+
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <a href="{% url 'home_page' %}" class="logo">Tourism App</a>
+
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <div class="nav-links" id="navLinks">
+                <a href="{% url 'home_page' %}">Home</a>
+                {% if user.is_authenticated %}
+                <a href="{% url 'dashboard_page' %}">Dashboard</a>
+
+                <a href="{% url 'tourist_page' %}">Add Tourist Spot</a>
+                <a href="{% url 'chat_list' %}">ChatBoot</a>
+                {% else %}
+                <a href="{% url 'galary_page' %}">Gallery Page</a>
+               <a href="{% url 'hostel_page' %}">Add Hostel</a>
+
+                {% endif %}
+
+                <a href="{% url 'about_page' %}">About Us</a>
+                <a href="{% url 'contact_page' %}">Contact Us</a>
+
+                {% if user.is_authenticated %}
+                <a class="btn btn-danger" href="{% url 'logout_page' %}">Logout</a>
+                {% else %}
+                <a class="btn btn-success" href="{% url 'register_page' %}">Sign Up</a>
+                <a class="btn btn-success" href="{% url 'login_page' %}">Sign In</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    {% if messages %}
+    <ul id="messages">
+        {% for message in messages %}
+        <li class="{{ message.tags }}">
+            {{ message }}
+            <span onclick="this.parentElement.style.display='none';" style="float:right; cursor:pointer;">&times;</span>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <div class="cont">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById("navLinks");
+            navLinks.classList.toggle("active");
+        }
+
+        setTimeout(() => {
+            const mess = document.getElementById("messages");
+            if (mess) {
+                mess.style.opacity = '0';
+                setTimeout(() => mess.remove(), 500);  // Smooth fade out and remove
+            }
+        }, 3000);
+    </script>
+
+</body>
+
+</html>

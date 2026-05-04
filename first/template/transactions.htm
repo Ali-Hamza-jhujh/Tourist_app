@@ -1,0 +1,59 @@
+{% extends 'base.htm' %}
+{% block title %}Transaction{% endblock %}
+{% block content %}
+
+<h2 style="text-align:center; margin: 30px;">💼 Admin Transaction Dashboard</h2>
+
+<form method="get" style="margin-bottom: 30px; text-align:center;">
+  <label>User:</label>
+  <select name="user">
+    <option value="">All</option>
+    {% for u in users %}
+      <option value="{{ u.id }}" {% if request.GET.user == u.id|stringformat:"s" %}selected{% endif %}>
+        {{ u.username }}
+      </option>
+    {% endfor %}
+  </select>
+
+  <label>Method:</label>
+  <select name="method">
+    <option value="">All</option>
+    <option value="easypaisa" {% if request.GET.method == "easypaisa" %}selected{% endif %}>EasyPaisa</option>
+    <option value="jazzcash" {% if request.GET.method == "jazzcash" %}selected{% endif %}>JazzCash</option>
+    <option value="card" {% if request.GET.method == "card" %}selected{% endif %}>Card</option>
+  </select>
+
+  <label>Trx ID:</label>
+  <input type="text" name="trx_id" value="{{ request.GET.trx_id }}"/>
+
+  <label>From:</label>
+  <input type="date" name="start_date" value="{{ request.GET.start_date }}"/>
+  <label>To:</label>
+  <input type="date" name="end_date" value="{{ request.GET.end_date }}"/>
+
+  <button type="submit">🔍 Filter</button>
+</form>
+
+<table border="1" cellspacing="0" cellpadding="10" style="width:90%; margin:auto;">
+  <tr style="background:#ddd;">
+    <th>User</th>
+    <th>Method</th>
+    <th>Mobile</th>
+    <th>Amount</th>
+    <th>Trx ID</th>
+    <th>Date</th>
+  </tr>
+  {% for payment in payments %}
+  <tr>
+    <td>{{ payment.user.username }}</td>
+    <td>{{ payment.method|title }}</td>
+    <td>{{ payment.mobile_number|default:"N/A" }}</td>
+    <td>Rs {{ payment.amount }}</td>
+    <td>{{ payment.trx_id }}</td>
+    <td>{{ payment.timestamp|date:"Y-m-d H:i" }}</td>
+  </tr>
+  {% empty %}
+  <tr><td colspan="6" style="text-align:center;">No transactions found.</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}

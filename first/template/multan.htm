@@ -1,0 +1,360 @@
+{% extends 'base.htm' %}
+{% block title %}Multan{% endblock %}
+{% block content %}
+{% load static %}
+
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fff8e1;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 3rem auto;
+    background: #fff;
+    padding: 3rem 2rem 4rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  header h1 {
+    font-size: 3rem;
+    color: #e65100;
+    margin-bottom: 1rem;
+  }
+
+  header p {
+    font-size: 1.2rem;
+    color: #555;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  section.attraction {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-bottom: 4rem;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 2rem;
+  }
+
+  .image-container {
+    flex: 1 1 400px;
+    max-width: 400px;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    transition: transform 0.4s ease;
+  }
+
+  .image-container img {
+    width: 100%;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .image-container:hover img {
+    transform: scale(1.05);
+  }
+
+  .attraction-details {
+    flex: 1 1 500px;
+  }
+
+  .attraction-details h2 {
+    color: #bf360c;
+    margin-bottom: 0.6rem;
+  }
+
+  .attraction-details p {
+    font-size: 1.1rem;
+    color: #444;
+    line-height: 1.6;
+  }
+
+  .highlight-box {
+    background: linear-gradient(135deg, #ffe0b2, #ffcc80);
+    padding: 1.5rem;
+    border-radius: 15px;
+    text-align: center;
+    font-weight: 600;
+    font-style: italic;
+    color: #e65100;
+    box-shadow: 0 8px 25px rgba(230, 81, 0, 0.15);
+  }
+      #fullscreenModal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    text-align: center;
+  }
+
+  #fullscreenModal img {
+    max-width: 90%;
+    max-height: 90%;
+    margin-top: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(255,255,255,0.2);
+  }
+
+  #fullscreenModal span {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+  }
+</style>
+
+<div class="container">
+  <header>
+    <h1>Top Tourist Attractions in Multan, Pakistan</h1>
+    <p>Multan, the "City of Saints," is one of the oldest cities in South Asia. It's known for its rich heritage, vibrant bazaars, and stunning Islamic architecture.<p style="color: red; text-align: center; "> To explore more about Multan Visit. <a style="color: blue; font-size: 20px; text-align: center;" href="{% url 'chatbot_page' %}">ChatBot</a></p></p>
+  </header>
+
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/ahmadshah_abdali.jpg' %}" alt="Ahmad Shah Abdali To mb" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Ahmad Shah Abdali Memorial</h2>
+      <p>Honoring the founder of the Durrani Empire, this memorial celebrates his historic visit to Multan and its legacy.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/band_river.jpg' %}" alt="Band River" onclick="modelimage(this)">
+    </div>
+     <div class="attraction-details">
+      <h2>Band River</h2>
+      <p>A picturesque riverside spot just outside Multan, perfect for evening strolls and enjoying calm waterscapes.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/baudin_zikria.jpg' %}" alt="Baudīn Zikris Shrine" onclick="modelimage(this)">
+     </div>
+    <div class="attraction-details">
+      <h2>Baudīn Zikris Shrine</h2>
+      <p>A lesser-known sacred site visited by those seeking spiritual solace and a glimpse into local faith traditions.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/char_minar.jpg' %}" alt="Char Minar" onclick="modelimage(this)">
+    </div>
+     <div class="attraction-details">
+      <h2>Char Minar</h2>
+      <p>An architectural tribute reminiscent of Delhi's Charminar, this elegant monument adds a cultural touch to the Multan skyline.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/delhi_gate.jpg' %}" alt="Delhi Gate" onclick="modelimage(this)">
+    </div>
+     <div class="attraction-details">
+      <h2>Delhi Gate</h2>
+      <p>One of the historic gateways into the old city, offering a walk through Multan’s architectural past.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/dolat_gate.jpg' %}" alt="Dolat Gate" onclick="modelimage(this)">
+    </div>
+     <div class="attraction-details">
+      <h2>Dolat Gate</h2>
+      <p>Another storied gate of Multan’s walled city, showcasing how defenses and culture merged in bygone eras.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/haram_gate.jpg' %}" alt="Haram Gate" onclick="modelimage(this)">
+    </div>
+     <div class="attraction-details">
+      <h2>Haram Gate</h2>
+      <p>A historic entrance that once welcomed pilgrims and traders — rich in stories of the city’s past.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/jain_mandir.jpg' %}" alt="Jain Mandir" onclick="modelimage(this)">
+    </div>
+     <div class="attraction-details">
+      <h2>Jain Mandir</h2>
+      <p>A heritage temple reflecting the diverse religious history of Multan, beloved by heritage and architecture enthusiasts.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/khuni_burj.jpg' %}" alt="Khunu Burj" onclick="modelimage(this)">
+    </div>
+     <div class="attraction-details">
+      <h2>Khunu Burj</h2>
+      <p>A watchtower offering panoramic views over old Multan — a serene point to reflect on the city below.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/invasione.jpg' %}" alt="Historical Invasion Memorial " onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Invasion Memorial</h2>
+      <p>A monument commemorating key historical battles that shaped the city's identity and resilience.</p>
+    </div>
+  </section>
+
+ <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/looking_out.jpg' %}" alt="Mazar‑e‑Shah Rukn‑e‑K an" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>City Viewpoint</h2>
+      <p>An observatory point that gives sweeping views of Multan — ideal for avid photographers.</p>
+    </div>
+  </section>
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/mazar_shahrukan.jpg' %}" alt="Mazar‑e‑Shah Rukn‑e‑K an" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Mazar of Shah Rukn‑e‑Kan</h2>
+      <p>A spiritual mausoleum built around an ancient saintly figure — reflective and peaceful for contemplative visitors.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/monument_vanalexander.jpg' %}" alt="Monument Van Al exander" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Monument Van Alexander</h2>
+      <p>A newer cultural landmark dedicated to a notable contributor in Multan’s modern history and arts.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/multan_artscouncil.jpg' %}" alt="Multan Arts Counci l" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Multan Arts Council</h2>
+      <p>Hub of cultural performances, art exhibitions, and theater reflecting the creative pulse of the city.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/multan_ghantaghar.jpg' %}" alt="Multan Ghanta Ghar"  onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Ghanta Ghar (Clock Tower)</h2>
+      <p>A prominent city landmark perfect for the clock watchers and architectural buffs exploring central Multan.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/shrine_maimaharban.jpg' %}" alt="Nigar K han Shrine / Mai Maharban" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Nigar Khan Shrine / Mai Maharban</h2>
+      <p>Dedicated space honoring the spiritual legacy of Nigar Khan and Mai Maharban — known for blessings and local reverence.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/shrine_shahshams.jpg' %}" alt="Shrine of Shah Shams " onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Shrine of Shah Shams</h2>
+      <p>A revered religious site where devotees come to pay respects to the saint and find inner peace.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/shrine_shahyusuf.jpg' %}" alt="Shrine of Shah Sharyo usuf" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Shrine of Shah Sharyousuf</h2>
+      <p>A sacred, serene sanctuary with spiritual ambiance and architectural beauty.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/tomb_khawaja.jpg' %}" alt="Tomb of Khawaja" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Tomb of Khawaja</h2>
+      <p>An ancient and peaceful resting place, rich in heritage and local legends.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/tomb_shah.jpg' %}" alt="Tomb of Shah" onclick="modelimage(this)">
+    </div>
+     <div class="attraction-details">
+      <h2>Tomb of Shah</h2>
+      <p>An artistically designed mausoleum honoring an influential saintly figure of Multan’s past.</p>
+    </div>
+  </section>
+
+  <section class="highlight-box">
+    <p><strong>Visit Multan:</strong> A timeless blend of spiritual history, vibrant culture, and mesmerizing architecture awaits you in this ancient city!</p>
+    <h6>CEO: Ali hamza </h6>
+  </section>
+</div>
+<div id="fullscreenModal">
+  <span onclick="closeModal()">&times;</span>
+  <img id="modalImage" src="" alt="Fullscreen Image">
+</div>
+<script>
+  function modelimage(imgElement) {
+    const modal = document.getElementById("fullscreenModal");
+    const modalImg = document.getElementById("modalImage");
+    modal.style.display = "block";
+    modalImg.src = imgElement.src;
+  }
+
+  function closeModal() {
+    document.getElementById("fullscreenModal").style.display = "none";
+  }
+
+  document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+      closeModal();
+    }
+  });
+</script>
+{% endblock %}

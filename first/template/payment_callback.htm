@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Payment Status</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      background: #f1f8e9;
+      padding-top: 80px;
+      color: #2e7d32;
+    }
+
+    .success {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .info {
+      margin-top: 20px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="success">✅ Payment Successful!</div>
+  <div class="info">
+    Payment by: {{ data.username }} <br>
+    Method: {{ data.method }} <br>
+    Amount: Rs {{ data.amount }} <br>
+  </div>
+</body>
+</html>

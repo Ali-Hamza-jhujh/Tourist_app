@@ -1,0 +1,274 @@
+{% extends 'base.htm' %}
+{% block title %}Quetta{% endblock %}
+{% block content %}
+{% load static %}
+
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f2fdfb;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 3rem auto;
+    background: #fff;
+    padding: 3rem 2rem 4rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  header h1 {
+    font-size: 3rem;
+    color: #00695c;
+    margin-bottom: 1rem;
+  }
+
+  header p {
+    font-size: 1.2rem;
+    color: #555;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  section.attraction {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-bottom: 4rem;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 2rem;
+  }
+
+  .image-container {
+    flex: 1 1 400px;
+    max-width: 400px;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    transition: transform 0.4s ease;
+  }
+
+  .image-container img {
+    width: 100%;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .image-container:hover img {
+    transform: scale(1.05);
+  }
+
+  .attraction-details {
+    flex: 1 1 500px;
+  }
+
+  .attraction-details h2 {
+    color: #004d40;
+    margin-bottom: 0.6rem;
+  }
+
+  .attraction-details p {
+    font-size: 1.1rem;
+    color: #444;
+    line-height: 1.6;
+  }
+
+  .highlight-box {
+    background: linear-gradient(135deg, #b2dfdb, #80cbc4);
+    padding: 1.5rem;
+    border-radius: 15px;
+    text-align: center;
+    font-weight: 600;
+    font-style: italic;
+    color: #00695c;
+    box-shadow: 0 8px 25px rgba(0, 105, 92, 0.15);
+  }
+    #fullscreenModal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    text-align: center;
+  }
+
+  #fullscreenModal img {
+    max-width: 90%;
+    max-height: 90%;
+    margin-top: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(255,255,255,0.2);
+  }
+
+  #fullscreenModal span {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+  }
+</style>
+
+<div class="container">
+  <header>
+    <h1>Top Tourist Attractions in Quetta, Pakistan</h1>
+    <p>Quetta, the capital of Balochistan, is surrounded by mountains and filled with cultural treasures, natural beauty, and a unique local vibe that reflects centuries of history.</p>
+  </header>
+
+
+
+  <!-- Hanna Lake -->
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/hanna_lake.jpg' %}" alt="Hanna Lake" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Hanna Lake</h2>
+      <p>A serene lake nestled between rocky hills, Hanna Lake offers paddle boating, peaceful scenery, and a chance to escape into nature. Ideal for family picnics and photography.</p>
+    </div>
+  </section>
+
+  <!-- Hazarganji Park -->
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/hazrangi_park.jpg' %}" alt="Hazarganji Park" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Hazarganji Chiltan National Park</h2>
+      <p>This park is a sanctuary for endangered species like the Chiltan ibex and features rocky trails and rare flora. It's perfect for nature lovers, hikers, and wildlife photographers.</p>
+    </div>
+  </section>
+
+  <!-- Juniper Forest -->
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/juniper.jpg' %}" alt="Juniper Forest" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Ziarat Juniper Forest</h2>
+      <p>Home to centuries-old juniper trees, this ancient forest is one of the largest of its kind. It offers crisp air, mountain peace, and an unforgettable walk among timeless trees.</p>
+    </div>
+  </section>
+
+  <!-- Mariabad -->
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/mariabad.jpg' %}" alt="Mariabad" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Mariabad</h2>
+      <p>A vibrant neighborhood of Quetta known for its colorful homes and Hazara community. It's full of character, history, and street culture, offering a window into local life.</p>
+    </div>
+  </section>
+
+  <!-- Pari Chashma -->
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/pari_chashma.jpg' %}" alt="Pari Chashma" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Pari Chashma</h2>
+      <p>A hidden gem with natural springs and lush greenery in the hills of Ziarat. Local legends add a mystical feel to this peaceful picnic spot surrounded by nature.</p>
+    </div>
+  </section>
+
+  <!-- Peci Dam -->
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/pechi_dam.jpg' %}" alt="Pechi Dam" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Pechi Dam</h2>
+      <p>Located in the outskirts of Quetta, Pechi Dam is a calm reservoir popular for short fishing trips, photography, and peaceful weekend getaways.</p>
+    </div>
+  </section>
+
+  <!-- Pir Ghaib -->
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/pir_ghaib.jpg' %}" alt="Pir Ghaib" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Pir Ghaib Waterfalls</h2>
+      <p>This enchanting site features freshwater falls, palm trees, and natural pools. The place is steeped in legend and is perfect for adventure and spiritual seekers.</p>
+    </div>
+  </section>
+
+  <!-- Quaid Residency -->
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/residency_quaid.jpg' %}" alt="Quaid-e-Azam Residency" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Quaid-e-Azam Residency</h2>
+      <p>Located in Ziarat, this beautiful colonial-era building is where Muhammad Ali Jinnah spent his final days. It stands as a national heritage site surrounded by scenic beauty.</p>
+    </div>
+  </section>
+
+  <!-- Urak Valley -->
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/urak.jpg' %}" alt="Urak Valley" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Urak Valley</h2>
+      <p>A green haven just outside Quetta, Urak Valley is famous for apple orchards, waterfalls, and breathtaking landscapes, especially beautiful in spring and early summer.<p style="color: red; text-align: center; "> To explore more about Quetta Visit. <a style="color: blue; font-size: 20px; text-align: center;" href="{% url 'chatbot_page' %}">ChatBot</a></p></p>
+    </div>
+  </section>
+
+  <!-- Ziarat Road -->
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/zirat_road.jpg' %}" alt="Ziarat Road" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Ziarat Road</h2>
+      <p>This scenic highway leads to Ziarat and offers spectacular views of mountains, valleys, and roadside tea spots. Ideal for a refreshing road trip through Balochistan’s beauty.</p>
+    </div>
+  </section>
+
+  <!-- Closing Highlight -->
+  <section class="highlight-box">
+    <p><strong>Visit Quetta:</strong> A mountain-wrapped city filled with natural beauty, hospitality, and the unique spirit of Balochistan.</p>
+    <h6>CEO: Ali Hamza</h6>
+  </section>
+</div>
+
+<div id="fullscreenModal">
+  <span onclick="closeModal()">&times;</span>
+  <img id="modalImage" src="" alt="Fullscreen Image">
+</div>
+<script>
+  function modelimage(imgElement) {
+    const modal = document.getElementById("fullscreenModal");
+    const modalImg = document.getElementById("modalImage");
+    modal.style.display = "block";
+    modalImg.src = imgElement.src;
+  }
+
+  function closeModal() {
+    document.getElementById("fullscreenModal").style.display = "none";
+  }
+
+  document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+      closeModal();
+    }
+  });
+</script>
+{% endblock %}

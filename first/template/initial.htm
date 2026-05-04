@@ -1,0 +1,236 @@
+{% extends 'base.htm' %}
+{% block title %}Payment{% endblock %}
+{% block content %}
+{% load static %}
+
+<style>
+  /* Styles (same as yours, unchanged) */
+  body {
+    background: linear-gradient(to right, #e0f2f1, #e1f5fe);
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .payment-form-container {
+    max-width: 600px;
+    margin: 60px auto;
+    padding: 40px 35px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .payment-form-container h1 {
+    font-size: 2.3rem;
+    margin-bottom: 1.8rem;
+    color: #01579b;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .trx-id-box {
+    background: #fff3e0;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-left: 6px solid #ffb300;
+    border-radius: 10px;
+    color: #ef6c00;
+    font-weight: 600;
+  }
+
+  .trx-id-box span {
+    font-family: monospace;
+    background: #ffe082;
+    padding: 5px 12px;
+    border-radius: 6px;
+    margin-left: 10px;
+  }
+
+  .user-info {
+    background: #e8f5e9;
+    padding: 10px 15px;
+    border-radius: 10px;
+    color: #1b5e20;
+    font-weight: 600;
+    margin-bottom: 25px;
+  }
+
+  .payment-methods {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 30px;
+  }
+
+  .method-btn {
+    flex: 1;
+    padding: 15px;
+    text-align: center;
+    border: 2px solid #64b5f6;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    color: #1565c0;
+    background: #e3f2fd;
+    box-shadow: 0 3px 6px rgba(21, 101, 192, 0.1);
+  }
+
+  .method-btn:hover,
+  .method-btn.active {
+    background: #1565c0;
+    color: white;
+    transform: scale(1.03);
+  }
+
+  .payment-fields {
+    display: none;
+    animation: fadeIn 0.4s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .field-block {
+    margin-bottom: 1.3rem;
+  }
+
+  label {
+    font-weight: 600;
+    color: #455a64;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 1.5px solid #cfd8dc;
+    transition: border 0.2s ease;
+    font-size: 1rem;
+  }
+
+  input:focus {
+    border-color: #1976d2;
+    outline: none;
+  }
+
+  .payment-btn {
+    margin-top: 30px;
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(to right, #26a69a, #00796b);
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 8px 16px rgba(0, 121, 107, 0.3);
+    transition: transform 0.2s ease;
+  }
+
+  .payment-btn:hover {
+    background: linear-gradient(to right, #00796b, #004d40);
+    transform: translateY(-2px);
+  }
+</style>
+
+<form method="post" action="{% url 'initiate_payment' %}">
+  {% csrf_token %}
+  <div class="payment-form-container">
+    <h1>💸 Choose Payment Method</h1>
+
+    {% if request.session.last_transaction_id %}
+      <div class="trx-id-box">
+        Last Transaction ID: <span>{{ request.session.last_transaction_id }}</span>
+      </div>
+    {% endif %}
+
+    <div class="user-info">
+      👤 Logged in as: <strong>{{ request.user.username }}</strong>
+    </div>
+
+    <div class="payment-methods">
+      <div class="method-btn" data-method="card">💳 Card</div>
+      <div class="method-btn" data-method="easypaisa">📱 EasyPaisa</div>
+      <div class="method-btn" data-method="jazzcash">📲 JazzCash</div>
+    </div>
+
+    <!-- EasyPaisa Fields -->
+    <div class="payment-fields" id="easypaisa">
+      <div class="field-block">
+        <label>EasyPaisa Mobile Number</label>
+        <input type="text" name="ep_number" placeholder="e.g. 03001234567" />
+      </div>
+      <div class="field-block">
+        <label>EasyPaisa Transaction ID</label>
+        <input type="text" name="ep_trx" placeholder="TXN1234..." />
+      </div>
+    </div>
+
+    <!-- JazzCash Fields -->
+    <div class="payment-fields" id="jazzcash">
+      <div class="field-block">
+        <label>JazzCash Mobile Number</label>
+        <input type="text" name="jc_number" placeholder="e.g. 03001234567" />
+      </div>
+      <div class="field-block">
+        <label>JazzCash Transaction ID</label>
+        <input type="text" name="jc_trx" placeholder="TXN5678..." />
+      </div>
+    </div>
+
+    <!-- Hidden input -->
+    <input type="hidden" name="payment_method" id="payment_method_input" required>
+
+    <!-- Submit for EasyPaisa & JazzCash -->
+    <button type="submit" class="payment-btn" id="submit-btn" style="display:none">
+      ✅ Confirm & Complete Payment
+    </button>
+  </div>
+</form>
+
+<!-- Stripe JS -->
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const methodBtns = document.querySelectorAll(".method-btn");
+    const methodInput = document.getElementById("payment_method_input");
+    const submitBtn = document.getElementById("submit-btn");
+    const fieldGroups = document.querySelectorAll(".payment-fields");
+
+    methodBtns.forEach(btn => {
+      btn.addEventListener("click", async () => {
+        methodBtns.forEach(b => b.classList.remove("active"));
+        fieldGroups.forEach(f => f.style.display = "none");
+        submitBtn.style.display = "none";
+
+        btn.classList.add("active");
+        const method = btn.dataset.method;
+        methodInput.value = method;
+
+        if (method === "card") {
+          try {
+            const response = await fetch("{% url 'start_card_payment' %}");
+            if (!response.ok) throw new Error("Failed to fetch Stripe session.");
+            const data = await response.json();
+
+            const stripe = Stripe(data.public_key);
+            await stripe.redirectToCheckout({ sessionId: data.session_id });
+          } catch (err) {
+            alert("Stripe Error: " + err.message);
+          }
+        } else {
+          const selected = document.getElementById(method);
+          if (selected) selected.style.display = "block";
+          submitBtn.style.display = "block";
+        }
+      });
+    });
+  });
+</script>
+
+{% endblock %}

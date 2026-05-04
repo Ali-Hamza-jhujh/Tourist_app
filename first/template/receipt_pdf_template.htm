@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Booking Receipt</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 2rem;
+      color: #2c3e50;
+    }
+
+    .container {
+      max-width: 800px;
+      background: #ffffff;
+      margin: auto;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      color: #0d47a1;
+      margin-bottom: 10px;
+    }
+
+    .info {
+      margin-bottom: 2rem;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .info strong {
+      color: #1b5e20;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      font-size: 0.95rem;
+    }
+
+    th {
+      background: #0d47a1;
+      color: white;
+      text-align: left;
+      padding: 10px;
+      font-weight: 600;
+    }
+
+    td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f1f8ff;
+    }
+
+    .total-amount {
+      margin-top: 2rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #2e7d32;
+      text-align: right;
+    }
+
+    .qr {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .qr img {
+      border: 2px solid #0d47a1;
+      border-radius: 10px;
+      padding: 5px;
+      background: #fff;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.85rem;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🧾 Booking Receipt</h1>
+
+    <div class="info">
+      <p><strong>User:</strong> {{ user.username }}</p>
+      <p><strong>Transaction ID:</strong> {{ trx_id }}</p>
+    </div>
+
+    <h3 style="color: #0d47a1;">Booking Details:</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>🏨 Hotel</th>
+          <th>📍 City</th>
+          <th>💰 Price</th>
+          <th>📦 Quantity</th>
+          <th>🧾 Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for booking in bookings %}
+        <tr>
+          <td>{{ booking.hotel.name }}</td>
+          <td>{{ booking.city.city }}</td>
+          <td>Rs {{ booking.price }}</td>
+          <td>{{ booking.quantity }}</td>
+          <td>Rs {{ booking.subtotal }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="total-amount">
+      Total Paid: Rs {{ total_amount }}
+    </div>
+
+    {% if qr_image %}
+    <div class="qr">
+      <h4>📷 QR Code for Transaction</h4>
+      <img src="data:image/png;base64,{{ qr_image }}" width="140" height="140" alt="QR Code">
+    </div>
+    {% endif %}
+
+    <div class="footer">
+      <p>Thank you for booking with us. Have a wonderful trip! ✈️</p>
+    </div>
+  </div>
+</body>
+</html>

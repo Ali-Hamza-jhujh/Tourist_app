@@ -1,0 +1,51 @@
+{% extends 'base.htm' %}
+{% block title %}Beautifull Cities{% endblock %}
+{% block content %}
+
+<style>
+  .option-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+  }
+
+  .option-box {
+    padding: 40px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+
+  .option-box h2 {
+    font-size: 28px;
+    color: #0d47a1;
+    margin-bottom: 30px;
+  }
+
+  .btn-option {
+    display: inline-block;
+    margin: 10px;
+    padding: 12px 25px;
+    background-color: #1e88e5;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: 0.3s;
+  }
+
+  .btn-option:hover {
+    background-color: #0d47a1;
+  }
+</style>
+<div class="option-container">
+  <div class="option-box">
+    <h2>What would you like to do in {{ city.city }}?</h2>
+    <a class="btn-option" href="{{ visit_url }}">📸 Visit More About {{ city.city }}</a>
+    <a class="btn-option" href="{{ hotel_url }}">🏨 Book Hotel</a>
+  </div>
+</div>
+
+{% endblock %}

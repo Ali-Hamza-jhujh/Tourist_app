@@ -1,0 +1,285 @@
+{% extends 'base.htm' %}
+{% block title %}Swat{% endblock %}
+{% block content %}
+{% load static %}
+
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #e8f5e9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 3rem auto;
+    background: #fff;
+    padding: 3rem 2rem 4rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  header h1 {
+    font-size: 3rem;
+    color: #388e3c;
+    margin-bottom: 1rem;
+  }
+
+  header p {
+    font-size: 1.2rem;
+    color: #555;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  section.attraction {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-bottom: 4rem;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 2rem;
+  }
+
+  .image-container {
+    flex: 1 1 400px;
+    max-width: 400px;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    transition: transform 0.4s ease;
+  }
+
+  .image-container img {
+    width: 100%;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .image-container:hover img {
+    transform: scale(1.05);
+  }
+
+  .attraction-details {
+    flex: 1 1 500px;
+  }
+
+  .attraction-details h2 {
+    color: #1b5e20;
+    margin-bottom: 0.6rem;
+  }
+
+  .attraction-details p {
+    font-size: 1.1rem;
+    color: #444;
+    line-height: 1.6;
+  }
+
+  .highlight-box {
+    background: linear-gradient(135deg, #c8e6c9, #a5d6a7);
+    padding: 1.5rem;
+    border-radius: 15px;
+    text-align: center;
+    font-weight: 600;
+    font-style: italic;
+    color: #2e7d32;
+    box-shadow: 0 8px 25px rgba(56, 142, 60, 0.15);
+  }
+   #fullscreenModal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    text-align: center;
+  }
+
+  #fullscreenModal img {
+    max-width: 90%;
+    max-height: 90%;
+    margin-top: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(255,255,255,0.2);
+  }
+
+  #fullscreenModal span {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+  }
+</style>
+
+<div class="container">
+  <header>
+    <h1>Top Tourist Attractions in Swat, Pakistan</h1>
+    <p>Swat Valley, known as the "Switzerland of the East", is a treasure trove of natural beauty, snow-capped peaks, rivers, and rich culture nestled in Khyber Pakhtunkhwa.<p style="color: red; text-align: center; "> To explore more about Swat Visit. <a style="color: blue; font-size: 20px; text-align: center;" href="{% url 'chatbot_page' %}">ChatBot</a></p></p>
+  </header>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/malam_jabba.jpg' %}" alt="Malam Jabba" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Malam Jabba</h2>
+      <p>Pakistan’s only ski resort, Malam Jabba is perfect for winter sports lovers and offers year-round hiking, ziplining, and chair lifts with stunning views.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/kalam_valy.jpg' %}" alt="Kalam Valley"onclick="modelimage(this)" >
+    </div>
+    <div class="attraction-details">
+      <h2>Kalam Valley</h2>
+      <p>One of the most popular destinations in Swat, Kalam features the Swat River, green meadows, and cool breezes — ideal for summer relaxation.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/mahodand_lake.jpg' %}" alt="Mahodand Lake"onclick="modelimage(this)" >
+    </div>
+    <div class="attraction-details">
+      <h2>Mahodand Lake</h2>
+      <p>Located in upper Kalam, this alpine lake offers boating, fishing, and mesmerizing views of mountains and forests around it.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/Ushu_forest.png' %}" alt="Ushu Forest" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Ushu Forest</h2>
+      <p>Thick pine forests with misty air and scenic jeep tracks, the Ushu Forest is a peaceful escape into nature near Kalam.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/bahrain.jpg' %}" alt="Bahrain" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Bahrain</h2>
+      <p>A riverside town known for its bazaars, wooden hotels, and merging point of two rivers — a favorite resting spot on the way to Kalam.</p>
+    </div>
+  </section>
+
+  <!-- New Sections Start Below -->
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/fizaghat_park.jpg' %}" alt="Fizaghat Park"onclick="modelimage(this)" >
+    </div>
+    <div class="attraction-details">
+      <h2>Fizaghat Park</h2>
+      <p>Located near Mingora, this riverside park is a favorite picnic spot with lush lawns, food stalls, and access to the fast-flowing Swat River.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/miandam.jpg' %}" alt="Miandam"onclick="modelimage(this)" >
+    </div>
+    <div class="attraction-details">
+      <h2>Miandam</h2>
+      <p>A scenic hill station near Bahrain, Miandam offers apple orchards, hiking trails, and breathtaking panoramic views of the valley.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/mingora_bazaar.jpg' %}" alt="Mingora Bazaar"onclick="modelimage(this)" >
+    </div>
+    <div class="attraction-details">
+      <h2>Mingora Bazaar</h2>
+      <p>The main shopping hub of Swat, Mingora Bazaar is bustling with traditional crafts, embroidered clothes, gemstone jewelry, and delicious local foods.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/mohanad_vally.jpg' %}" alt="Mohandand Valley" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Mohandand Valley</h2>
+      <p>Less explored but incredibly beautiful, Mohandand Valley features alpine meadows, waterfalls, and serene trekking paths.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/swat_museum.jpg' %}" alt="Swat Museum" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Swat Museum</h2>
+      <p>Showcasing Gandhara art, ancient Buddhist relics, and Swat’s archaeological heritage, this museum is a must-visit for history enthusiasts.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/Swat_vally.webp' %}" alt="Swat Valley" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Swat Valley</h2>
+      <p>The heart of the region, Swat Valley itself offers mesmerizing views, scenic drives, and an ideal starting point for discovering the northern beauty.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/White_palace.jpg' %}" alt="White Palace Marghazar"onclick="modelimage(this)" >
+    </div>
+    <div class="attraction-details">
+      <h2>White Palace Marghazar</h2>
+      <p>Built with white marble, this historic palace was once the royal residence of the Wali of Swat and is now a tourist attraction surrounded by lush gardens.</p>
+    </div>
+  </section>
+
+  <section class="highlight-box">
+    <p><strong>Visit Swat:</strong> A land of valleys, waterfalls, and warm hospitality. Escape to the unmatched beauty of northern Pakistan!</p>
+    <h6>CEO: Ali hamza </h6>
+  </section>
+</div>
+
+<div id="fullscreenModal">
+  <span onclick="closeModal()">&times;</span>
+  <img id="modalImage" src="" alt="Fullscreen Image" onclick="modelimage(this)">
+</div>
+
+<script>
+  function modelimage(imgElement) {
+    const modal = document.getElementById("fullscreenModal");
+    const modalImg = document.getElementById("modalImage");
+    modal.style.display = "block";
+    modalImg.src = imgElement.src;
+  }
+
+  function closeModal() {
+    document.getElementById("fullscreenModal").style.display = "none";
+  }
+
+  document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+      closeModal();
+    }
+  });
+</script>
+ 
+{% endblock %}

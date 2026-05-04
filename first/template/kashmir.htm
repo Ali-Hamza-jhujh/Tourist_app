@@ -1,0 +1,254 @@
+{% extends 'base.htm' %}
+{% block title %}Kashmir{% endblock %}
+{% block content %}
+{% load static %}
+
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f8ff;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 3rem auto;
+    background: #fff;
+    padding: 3rem 2rem 4rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  header h1 {
+    font-size: 3rem;
+    color: #007acc;
+    margin-bottom: 1rem;
+  }
+
+  header p {
+    font-size: 1.2rem;
+    color: #555;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  section.attraction {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-bottom: 4rem;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 2rem;
+  }
+
+  .image-container {
+    flex: 1 1 400px;
+    max-width: 400px;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    transition: transform 0.4s ease;
+  }
+
+  .image-container img {
+    width: 100%;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .image-container:hover img {
+    transform: scale(1.05);
+  }
+
+  .attraction-details {
+    flex: 1 1 500px;
+  }
+
+  .attraction-details h2 {
+    color: #005f99;
+    margin-bottom: 0.6rem;
+  }
+
+  .attraction-details p {
+    font-size: 1.1rem;
+    color: #444;
+    line-height: 1.6;
+  }
+
+  .highlight-box {
+    background: linear-gradient(135deg, #cce7ff, #99cefb);
+    padding: 1.5rem;
+    border-radius: 15px;
+    text-align: center;
+    font-weight: 600;
+    font-style: italic;
+    color: #004080;
+    box-shadow: 0 8px 25px rgba(0, 100, 190, 0.15);
+  }
+  #fullscreenModal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    text-align: center;
+  }
+
+  #fullscreenModal img {
+    max-width: 90%;
+    max-height: 90%;
+    margin-top: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(255,255,255,0.2);
+  }
+
+  #fullscreenModal span {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+  }
+</style>
+
+<div class="container">
+  <header>
+    <h1>Top Tourist Attractions in Kashmir, Pakistan</h1>
+    <p>Kashmir is a breathtaking region filled with stunning landscapes, lush valleys, crystal-clear lakes, and rich cultural heritage. A true paradise on earth!<p style="color: red; text-align: center; "> To explore more about Kashmir Visit. <a style="color: blue; font-size: 20px; text-align: center;" href="{% url 'chatbot_page' %}">ChatBot</a></p></p>
+  </header>
+
+  <!-- New Attractions -->
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/banjosa_lake.jpg' %}" alt="Banjosa Lake" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Banjosa Lake</h2>
+      <p>A man-made lake surrounded by pine forests and hills, Banjosa is perfect for a peaceful boat ride and family picnics.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/canoeing_neelumvalley.jpg' %}" alt="Canoeing in Neelum Valley" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Canoeing - Neelum Valley</h2>
+      <p>Adventure seekers can enjoy canoeing in the crystal-clear rivers of Neelum Valley, offering thrilling views and refreshing waters.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/jhelum_valley.jpg' %}" alt="Jhelum Valley" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Jhelum Valley</h2>
+      <p>This valley is lined with the Jhelum River and picturesque towns. It's known for its panoramic views and rich cultural vibe.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/lepa_valley.jpg' %}" alt="Lepa Valley" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Lepa Valley</h2>
+      <p>Lepa Valley, also spelled Leepa, features terraced fields, wooden houses, and a strong local culture. It's visually stunning in autumn.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/pir_chenashi.jpg' %}" alt="Pir Chinasi" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Pir Chinasi</h2>
+      <p>Located 30 km from Muzaffarabad, this sacred shrine and viewpoint offers majestic views of snow-capped mountains and valleys.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/Ramkot_fort.webp' %}" alt="Ramkot Fort" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Ramkot Fort</h2>
+      <p>Built on the confluence of River Jhelum and Mangla Lake, this 16th-century fort is an architectural gem and a hidden historic treasure.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/red_fort.jpg' %}" alt="Red Fort" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Red Fort</h2>
+      <p>Also known as Muzaffarabad Fort, it was once a strategic military structure. Its historic ruins overlook the Neelum and Jhelum rivers.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/shounter_lake.jpg' %}" alt="Shounter Lake" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Shounter Lake</h2>
+      <p>Located in Shounter Valley, this glacial lake is surrounded by wildflowers and snow-capped peaks, offering raw, untouched beauty.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/Toli_pir.jpg' %}" alt="Toli Peer" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Toli Peer</h2>
+      <p>A slightly different viewpoint than Toli Pir, this peak allows panoramic views and is ideal for photography and hiking.</p>
+    </div>
+  </section>
+
+  <section class="highlight-box">
+    <p><strong>Visit Kashmir:</strong> A wonderland of nature, history, and culture awaits. Experience the serenity of northern Pakistan!</p>
+    <h6>CEO: Ali hamza</h6>
+  </section>
+</div>
+<div id="fullscreenModal">
+  <span onclick="closeModal()">&times;</span>
+  <img id="modalImage" src="" alt="Fullscreen Image" onclick="modelimage(this)">
+</div>
+
+<script>
+  function modelimage(imgElement) {
+    const modal = document.getElementById("fullscreenModal");
+    const modalImg = document.getElementById("modalImage");
+    modal.style.display = "block";
+    modalImg.src = imgElement.src;
+  }
+
+  function closeModal() {
+    document.getElementById("fullscreenModal").style.display = "none";
+  }
+
+  document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+      closeModal();
+    }
+  });
+</script>
+
+{% endblock %}

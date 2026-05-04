@@ -1,0 +1,83 @@
+{% extends 'base.htm' %}
+{% block title %}Tourist{% endblock %}
+{% load static %}
+{% block content %}
+
+<style>
+  .form-wrapper {
+    max-width: 750px;
+    margin: auto;
+    padding: 30px;
+    background: #fefefe;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+
+  h2 {
+    text-align: center;
+    color: #0d47a1;
+    margin-bottom: 20px;
+  }
+
+  label {
+    font-weight: bold;
+    margin-top: 15px;
+    display: block;
+  }
+
+  input, textarea, select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin-top: 5px;
+  }
+
+  button {
+    background-color: #1976d2;
+    color: white;
+    padding: 12px;
+    width: 100%;
+    border: none;
+    margin-top: 20px;
+    border-radius: 6px;
+    font-size: 16px;
+  }
+
+  button:hover {
+    background-color: #0d47a1;
+  }
+</style>
+
+<div class="form-wrapper">
+  <h2>📝 Add Tourist Spot</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label>City:</label>
+    <select name="city" required>
+      <option value="">-- Select City --</option>
+      {% for city in cities %}
+        <option value="{{ city.id }}">{{ city.city }}</option>
+      {% endfor %}
+    </select>
+
+    <label>Spot Name:</label>
+    <input type="text" name="name" required>
+
+    <label>Your Name:</label>
+    <input type="text" name="yourname" required>
+
+    <label>Upload Image:</label>
+    <input type="file" name="image" accept="image/*" required>
+
+    <label>Description / Extra Info:</label>
+    <textarea name="extra_details"></textarea>
+
+    <label>Google Maps Embed URL:</label>
+    <input type="url" name="location_url" required>
+
+    <button type="submit">➕ Submit Spot</button>
+  </form>
+</div>
+
+{% endblock %}

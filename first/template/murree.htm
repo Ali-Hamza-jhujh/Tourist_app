@@ -1,0 +1,266 @@
+{% extends 'base.htm' %}
+{% block title %}Murree{% endblock %}
+{% block content %}
+{% load static %}
+
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f8ff;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 3rem auto;
+    background: #fff;
+    padding: 3rem 2rem 4rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  header h1 {
+    font-size: 3rem;
+    color: #007acc;
+    margin-bottom: 1rem;
+  }
+
+  header p {
+    font-size: 1.2rem;
+    color: #555;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  section.attraction {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-bottom: 4rem;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 2rem;
+  }
+
+  .image-container {
+    flex: 1 1 400px;
+    max-width: 400px;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    transition: transform 0.4s ease;
+  }
+
+  .image-container img {
+    width: 100%;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .image-container:hover img {
+    transform: scale(1.05);
+  }
+
+  .attraction-details {
+    flex: 1 1 500px;
+  }
+
+  .attraction-details h2 {
+    color: #005f99;
+    margin-bottom: 0.6rem;
+  }
+
+  .attraction-details p {
+    font-size: 1.1rem;
+    color: #444;
+    line-height: 1.6;
+  }
+
+  .highlight-box {
+    background: linear-gradient(135deg, #cce7ff, #99cefb);
+    padding: 1.5rem;
+    border-radius: 15px;
+    text-align: center;
+    font-weight: 600;
+    font-style: italic;
+    color: #004080;
+    box-shadow: 0 8px 25px rgba(0, 100, 190, 0.15);
+  }
+  #fullscreenModal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    text-align: center;
+  }
+
+  #fullscreenModal img {
+    max-width: 90%;
+    max-height: 90%;
+    margin-top: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(255,255,255,0.2);
+  }
+
+  #fullscreenModal span {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+  }
+</style>
+
+<div class="container">
+  <header>
+    <h1>Top Tourist Attractions in Murree, Pakistan</h1>
+    <p>Murree, the "Queen of the Hills," is a stunning hill station nestled in the Pir Panjal range. Famous for its lush greenery, cool climate, and scenic beauty.<p style="color: red; text-align: center; "> To explore more about Murree Visit. <a style="color: blue; font-size: 20px; text-align: center;" href="{% url 'chatbot_page' %}">ChatBot</a></p></p>
+  </header>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/mall-road.jpg' %}" alt="Mall Road" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Mall Road</h2>
+      <p>The bustling center of Murree, full of local shops, food stalls, and vibrant nightlife. A favorite place for evening walks and shopping.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/pindi_point.jpg' %}" alt="Pindi Point" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Pindi Point</h2>
+      <p>Offers panoramic views of Rawalpindi city. A popular spot for chair lift rides and scenic photography.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/kashmir_point.jpg' %}" alt="Kashmir Point" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Kashmir Point</h2>
+      <p>Peaceful and serene, this viewpoint provides an incredible view of snow-covered mountains during winter.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/patriata.jpg' %}" alt="Patriata (New Murree)" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Patriata (New Murree)</h2>
+      <p>Famous for its chair lifts and cable cars between lush pine forests. A must-visit for adventure lovers.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/bhurban.jpg' %}" alt="Bhurban" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Bhurban</h2>
+      <p>A luxurious escape near Murree, known for its five-star resorts, golf course, and peaceful surroundings.</p>
+    </div>
+  </section>
+
+  <!-- New attractions -->
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/ayubia.jpg' %}" alt="Ayubia" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Ayubia National Park</h2>
+      <p>Home to dense forests, diverse wildlife, and the famous "Pipeline Walking Track" between Ayubia and Dunga Gali. A haven for nature lovers.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/ghora_gali.jpg' %}" alt="Ghora Gali" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Ghora Gali</h2>
+      <p>Known for its colonial-era charm and beautiful views, Ghora Gali offers hiking spots and quiet guesthouses for a peaceful retreat.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/nathiagali.jpg' %}" alt="Nathiagali" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Nathiagali</h2>
+      <p>A cool, forested town with panoramic views and hiking trails like Mukshpuri and Miranjani — perfect for outdoor enthusiasts.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/rawat.jpg' %}" alt="Rawat" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Rawat</h2>
+      <p>Located between Islamabad and Murree, Rawat is a peaceful village known for its green fields, fresh air, and rural charm.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/Upper_topa.jpg' %}" alt="Upper Topa" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Upper Topa</h2>
+      <p>Situated at a higher altitude, Upper Topa is cooler and less crowded — ideal for snow lovers and those looking to escape the tourist buzz.</p>
+    </div>
+  </section>
+
+  <section class="highlight-box">
+    <p><strong>Visit Murree:</strong> Refresh your soul with cool breezes, tall pine trees, and mountain magic – just a few hours from Islamabad!</p>
+    <h6>CEO: Ali hamza </h6>
+  </section>
+</div>
+<div id="fullscreenModal">
+  <span onclick="closeModal()">&times;</span>
+  <img id="modalImage" src="" alt="Fullscreen Image" onclick="modelimage(this)">
+</div>
+
+<script>
+  function modelimage(imgElement) {
+    const modal = document.getElementById("fullscreenModal");
+    const modalImg = document.getElementById("modalImage");
+    modal.style.display = "block";
+    modalImg.src = imgElement.src;
+  }
+
+  function closeModal() {
+    document.getElementById("fullscreenModal").style.display = "none";
+  }
+
+  document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+      closeModal();
+    }
+  });
+</script>
+
+
+
+{% endblock %}

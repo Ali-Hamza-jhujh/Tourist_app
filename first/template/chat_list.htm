@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat List</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans h-screen flex flex-col">
+
+    <!-- Header -->
+    <div class="flex items-center p-4 bg-white shadow-md">
+        <h1 class="text-xl font-semibold">Chats</h1>
+    </div>
+
+    <!-- User List -->
+    <div class="flex-1 overflow-y-auto">
+        <ul class="divide-y divide-gray-200">
+            {% for user in users %}
+                <li>
+                    <a href="{% url 'chat_page' user.id %}" class="flex items-center p-4 hover:bg-gray-200">
+                        <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-4">
+                            {{ user.username|slice:":1" }}
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-semibold">{{ user.username }}</div>
+                            <div class="text-sm text-green-500">Online</div>
+                        </div>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+</body>
+</html>

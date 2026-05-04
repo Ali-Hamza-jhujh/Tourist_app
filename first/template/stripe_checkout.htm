@@ -1,0 +1,25 @@
+<!-- stripe_checkout.htm -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Stripe Checkout</title>
+</head>
+<body>
+  <h2>Book Your Tour 🧳</h2>
+  <button id="checkout-button">Pay Now</button>
+
+  <script src="https://js.stripe.com/v3/"></script>
+  <script>
+    const stripe = Stripe("{{ stripe_public_key }}");
+    const checkoutButton = document.getElementById("checkout-button");
+
+    checkoutButton.addEventListener("click", function () {
+      stripe.redirectToCheckout({
+        sessionId: "{{ session_id }}"
+      }).then(function (result) {
+        console.error(result.error.message);
+      });
+    });
+  </script>
+</body>
+</html>

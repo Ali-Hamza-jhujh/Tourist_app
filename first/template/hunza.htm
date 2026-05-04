@@ -1,0 +1,297 @@
+{% extends 'base.htm' %}
+{% block title %}Hunza{% endblock %}
+{% block content %}
+{% load static %}
+
+
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f8ff;
+    color: #333;
+    margin: 0; padding: 0;
+  }
+  .container {
+    width: 90%; max-width: 1100px;
+    margin: 3rem auto;
+    background: #fff;
+    padding: 3rem 2rem 4rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: box-shadow 0.3s ease-in-out;
+  }
+  .container:hover { box-shadow: 0 15px 50px rgba(0,0,0,0.2); }
+  header { text-align: center; margin-bottom: 4rem; }
+  header h1 {
+    font-size: 3.2rem; color: #007acc;
+    letter-spacing: 1.2px; margin-bottom: 0.4rem;
+  }
+  header p { font-size: 1.25rem; color: #555; max-width: 700px; margin: 0 auto; line-height: 1.6;}
+  header .meta { margin-top: 0.8rem; font-size: 0.9rem; color: #999; }
+  section.attraction {
+    margin-bottom: 4.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #e0e7f1;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2rem;
+  }
+  section.attraction:last-child { border-bottom: none; }
+  section.attraction h2 {
+    font-size: 2.4rem; margin-bottom: 0.6rem;
+    color: #b7351b;
+    flex-basis: 100%;
+    border-left: 6px solid #e26b24;
+    padding-left: 12px;
+    font-weight: 700;
+    user-select: none; cursor: default;
+  }
+  section.attraction p {
+    font-size: 1.1rem; color: #444;
+    line-height: 1.55;
+    flex: 1 1 480px;
+    user-select: text;
+  }
+  section.attraction h3 {
+    color: #e26b24;
+    margin-top: 1rem;
+    font-weight: 600;
+  }
+  .image-container {
+    flex: 1 1 400px;
+    max-width: 400px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    cursor: pointer;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    user-select: none;
+  }
+  .image-container:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+  }
+  .image-container img { width: 100%; height: auto; display: block; }
+  .highlight-box {
+    margin-top: 4rem;
+    background: linear-gradient(135deg, #ffe7cc, #ffd499);
+    padding: 1.4rem 2rem;
+    border-radius: 20px;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: #b7351b;
+    box-shadow: 0 8px 25px rgba(200, 82, 0, 0.10);
+    text-align: center;
+    user-select: none;
+  }
+  @media (max-width: 920px) {
+    section.attraction { flex-direction: column; gap: 1.8rem; }
+    .image-container, section.attraction p { max-width: 100%; flex-basis: auto; }
+    header p { max-width: 100%; padding: 0 1rem; }
+  }
+    #fullscreenModal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    text-align: center;
+  }
+
+  #fullscreenModal img {
+    max-width: 90%;
+    max-height: 90%;
+    margin-top: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(255,255,255,0.2);
+  }
+
+  #fullscreenModal span {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+  } 
+</style>
+<div class="container">
+  <header>
+    <h1>Top Tourist Attractions in Hunza, Pakistan</h1>
+    <p>Hunza Valley, located in Gilgit-Baltistan, is one of the most breathtaking travel destinations in Pakistan. Surrounded by snow-capped mountains, ancient forts, and turquoise rivers, it's a paradise for nature lovers and adventurers alike. <p style="color: red;"> To explore more about Hunza Visit.</p> <a style="color: blue; font-size: 20px;" href="{% url 'chatbot_page' %}">ChatBot</a></p>
+    <div class="meta">August 2025 | Hunza Travel Guide | 12 Comments</div>
+  </header>
+
+     <section class="attraction" id="attabad-tunnel">
+    <h2>Attabad Tunnel: Gateway through the Mountains</h2>
+    <div class="image-container">
+      <img src="{% static 'images/attabad-tunnel.jpg' %}" alt="Attabad Tunnel" onclick="modelimage(this)" />
+    </div>
+    <p>The Attabad Tunnel connects travelers through a breathtaking route carved into the mountains after the 2010 landslide. It bypasses the dangerous lake route and is part of the Karakoram Highway, significantly improving safety and travel time for locals and tourists.</p>
+  </section>
+
+  <section class="attraction" id="batru-glacier">
+    <h2>Batru Glacier: Hidden Gem of Ice and Rock</h2>
+    <div class="image-container">
+      <img src="{% static 'images/batru-glacier.jpg' %}" alt="Batru Glacier" onclick="modelimage(this)" />
+    </div>
+    <p>A lesser-known marvel, Batru Glacier offers peaceful treks with dramatic icy landscapes. Its isolation makes it a perfect spot for eco-tourism and untouched exploration for glacier researchers and hikers.</p>
+  </section>
+
+  <section class="attraction" id="boirth-lake">
+    <h2>Boirth Lake: Mirror of the Mountains</h2>
+    <div class="image-container">
+      <img src="{% static 'images/boirth-lake.jpg' %}" alt="Boirth Lake" onclick="modelimage(this)" />
+    </div>
+    <p>This tranquil lake reflects the nearby snowy peaks, offering serenity for travelers and photographers. Surrounded by alpine meadows, it's an ideal location for camping and meditation in nature.</p>
+  </section>
+
+  <section class="attraction" id="dikar-view">
+    <h2>Dikar View Point: Watch Over Hunza</h2>
+    <div class="image-container">
+      <img src="{% static 'images/dikar-view.jpg' %}" alt="Dikar View" onclick="modelimage(this)" />
+    </div>
+    <p>Climb to Dikar for an aerial panorama of Hunza Valley and the mighty Karakoram ranges. It’s especially popular during sunrise and sunset when the peaks glow in golden light.</p>
+  </section>
+
+  <section class="attraction" id="hunza-fort">
+    <h2>Hunza Fort: Timeless Guardian</h2>
+    <div class="image-container">
+      <img src="{% static 'images/hunza-fort.jpg' %}" alt="Hunza Fort" onclick="modelimage(this)" />
+    </div>
+    <p>Standing proud, this ancient fort is steeped in history and culture of the Hunza people. With restored wooden interiors and panoramic balconies, it narrates stories of bravery and legacy.</p>
+  </section>
+
+  <section class="attraction" id="husani">
+    <h2>Husani Village & Bridge: Dare the Rope</h2>
+    <div class="image-container">
+      <img src="{% static 'images/husani.jpg' %}" alt="Husani Suspension Bridge" onclick="modelimage(this)" />
+    </div>
+    <p>Known for its thrilling suspension bridge, Husani offers adventure with a view. The bridge is often featured in travel documentaries for being one of the most dangerous yet thrilling crossings in the world.</p>
+  </section>
+
+  <section class="attraction" id="karakoram">
+    <h2>Karakoram Range: The Roof of the World</h2>
+    <div class="image-container">
+      <img src="{% static 'images/karakoram.jpg' %}" alt="Karakoram Mountains" onclick="modelimage(this)" />
+    </div>
+    <p>The legendary Karakoram mountains dominate the skyline with their snow-capped glory. Home to several 7000+ meter peaks, this range attracts mountaineers and scientists from all over the globe.</p>
+  </section>
+
+  <section class="attraction" id="karakoram-meeting">
+    <h2>Meeting Point: Himalayas, Karakoram, Hindukush</h2>
+    <div class="image-container">
+      <img src="{% static 'images/karakoram-meeting-point.jpg' %}" alt="Mountain Meeting Point" onclick="modelimage(this)" />
+    </div>
+    <p>One of the rare places on Earth where three mighty mountain ranges meet. This unique geographical wonder can be viewed from a specific viewpoint along the Karakoram Highway near Gilgit.</p>
+  </section>
+
+  <section class="attraction" id="misgar">
+    <h2>Misgar Valley: Remote Beauty</h2>
+    <div class="image-container">
+      <img src="{% static 'images/misgar.jpg' %}" alt="Misgar Valley" onclick="modelimage(this)" />
+    </div>
+    <p>Bordering China, Misgar is untouched, remote, and rich with wild landscapes and nomadic history. The valley is known for traditional stone houses and friendly Wakhi people.</p>
+  </section>
+
+  <section class="attraction" id="nalar">
+    <h2>Nalar: Lush Alpine Charm</h2>
+    <div class="image-container">
+      <img src="{% static 'images/nalar.jpg' %}" alt="Nalar Valley" onclick="modelimage(this)" />
+    </div>
+    <p>A peaceful valley of flowers, Nalar is perfect for picnics and quiet reflection. It’s also a popular spot for trout fishing and eco-friendly village stays.</p>
+  </section>
+
+  <section class="attraction" id="naltar">
+    <h2>Naltar Valley: Painted by Nature</h2>
+    <div class="image-container">
+      <img src="{% static 'images/naltar.jpg' %}" alt="Naltar Valley" onclick="modelimage(this)" />
+    </div>
+    <p>Known for its ski slopes, green forests, and rainbow lakes, Naltar is an alpine dream. It also houses Pakistan’s first ski resort and is popular in winter for snowy adventures.</p>
+  </section>
+
+  <section class="attraction" id="nanga-parbat">
+    <h2>Nanga Parbat: The Killer Mountain</h2>
+    <div class="image-container">
+      <img src="{% static 'images/nanga-parbat.jpg' %}" alt="Nanga Parbat" onclick="modelimage(this)" />
+    </div>
+    <p>The world’s 9th highest mountain, famous for its beauty — and danger to climbers. It rises dramatically from the Indus River and is also called the “Western Anchor of the Himalayas.”</p>
+  </section>
+
+  <section class="attraction" id="passu-cones-2">
+    <h2>Passu Cones Again: Because Once is Not Enough</h2>
+    <div class="image-container">
+      <img src="{% static 'images/passu-cones.jpg' %}" alt="Passu Cones" onclick="modelimage(this)" />
+    </div>
+    <p>The towering cones are so iconic they deserve another look — in different light and angles. Locals call them the “Passu Cathedral” due to their spiky, gothic-like appearance.</p>
+  </section>
+
+  <section class="attraction" id="passu-glacier">
+    <h2>Passu Glacier: A Trekker’s Reward</h2>
+    <div class="image-container">
+      <img src="{% static 'images/passu-glacier.jpg' %}" alt="Passu Glacier" onclick="modelimage(this)" />
+    </div>
+    <p>Just beyond the cones lies the majestic Passu Glacier — vast, cold, and wild. It’s a popular spot for guided treks and part of the network of glaciers feeding the Hunza River.</p>
+  </section>
+
+  <section class="attraction" id="rakaposhi">
+    <h2>Rakaposhi: The Shining Wall</h2>
+    <div class="image-container">
+      <img src="{% static 'images/rakaposhi.jpg' %}" alt="Rakaposhi" onclick="modelimage(this)" />
+    </div>
+    <p>One of the most beautiful peaks on Earth, Rakaposhi dominates the horizon near Hunza. It is the only mountain in the world that rises straight from the valley floor to over 7000m in just 11km.</p>
+  </section>
+
+  <section class="attraction" id="sost">
+    <h2>Sost: Gateway to China</h2>
+    <div class="image-container">
+      <img src="{% static 'images/sost.jpg' %}" alt="Sost Border" onclick="modelimage(this)" />
+    </div>
+    <p>Sost is the last town before the China border — a bustling point of culture, trade, and checkpoints. It’s also where customs clearance occurs for cargo on the China-Pakistan Economic Corridor (CPEC).</p>
+  </section>
+
+  <section class="attraction" id="kamyab">
+    <h2>Kamyab: Hidden Adventure</h2>
+    <div class="image-container">
+      <img src="{% static 'images/kamyab.jpg' %}" alt="Kamyab Valley" onclick="modelimage(this)" />
+    </div>
+    <p>A remote and quiet village known for its raw nature and close community. Kamyab is untouched by commercial tourism and offers rare local experiences like yak herding and folk tales around bonfires.</p>
+  </section>
+
+
+  <section class="highlight-box">
+    <p><strong>Discover Hunza’s Natural Magic:</strong> Whether you seek adventure, history, or peace, Hunza welcomes you with open arms and breathtaking views. Plan your escape today!</p>
+    <h6>CEO: Ali hamza </h6>
+  </section>
+</div>
+<div id="fullscreenModal">
+  <span onclick="closeModal()">&times;</span>
+  <img id="modalImage" src="" alt="Fullscreen Image">
+</div>
+
+<script>
+  function modelimage(imgElement) {
+    const modal = document.getElementById("fullscreenModal");
+    const modalImg = document.getElementById("modalImage");
+    modal.style.display = "block";
+    modalImg.src = imgElement.src;
+  }
+
+  function closeModal() {
+    document.getElementById("fullscreenModal").style.display = "none";
+  }
+
+  document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+      closeModal();
+    }
+  });
+</script>
+{% endblock %}

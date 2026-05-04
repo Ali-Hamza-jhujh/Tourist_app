@@ -1,0 +1,151 @@
+{% extends 'base.htm' %}
+{% block title %}Hostel list{% endblock %}
+{% block content %}
+{% load static %}
+
+<style>
+  /* Container */
+  .hotel-header {
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: #1565c0;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    text-shadow: 1px 1px 4px #bbdefb;
+  }
+
+  /* Card */
+  .hotel-card {
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgb(21 101 192 / 15%);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .hotel-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 12px 25px rgb(21 101 192 / 30%);
+  }
+
+  /* Hotel Image */
+  .hotel-card img {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    height: 380px;
+    object-fit: cover;
+    width: 100%;
+    transition: transform 0.3s ease;
+  }
+
+  .hotel-card:hover img {
+    transform: scale(1.05);
+  }
+
+  /* City Badge */
+  .city-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: #0d47a1;
+    color: white;
+    padding: 0.3rem 0.8rem;
+    font-weight: 500;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    box-shadow: 1px 1px 5px #0d47a1cc;
+    user-select: none;
+  }
+
+  /* Card Body */
+  .card-body {
+    padding: 1.4rem 1.3rem;
+  }
+
+  /* Hotel name */
+  .hotel-name {
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: #1565c0;
+    margin-bottom: 0.3rem;
+  }
+
+  /* Location */
+  .hotel-location {
+    font-size: 0.95rem;
+    color: #5a6e81;
+    margin-bottom: 0.8rem;
+  }
+
+  /* Price */
+  .hotel-price {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #43a047;
+    margin-bottom: 1.1rem;
+  }
+
+  /* Quantity input */
+  .form-control.quantity-input {
+    width: 70px;
+    display: inline-block;
+    margin-right: 0.5rem;
+  }
+
+  /* Add to Cart button */
+  .btn-add {
+    background-color: #1565c0;
+    border-color: #1565c0;
+    color: #fff;
+    font-weight: 600;
+    padding: 0.45rem 1.4rem;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-add:hover {
+    background-color: #0b3c91;
+    border-color: #0b3c91;
+  }
+
+  /* Responsive spacing */
+  @media (max-width: 575.98px) {
+    .hotel-card {
+      margin-bottom: 1.8rem;
+    }
+  }
+</style>
+
+<div class="container py-5">
+  <h1 class="hotel-header">Available Hotels in {{ city.city }}</h1>
+<p style="color: red; text-align: center;margin-bottom: 30px; "> To explore more about any hotel of any city Visit. <a style="color: blue; font-size: 20px; text-align: center;" href="{% url 'chatbot_page' %}">ChatBot</a></p></p>
+  <div class="row g-4">
+    {% for hotel in hotels %}
+    <div class="col-md-4 col-sm-6">
+      <div class="hotel-card position-relative">
+        {% if hotel.image %}
+          <img src="{{ hotel.image.url }}" alt="{{ hotel.name }} image" class="hotel-img" />
+          <div class="city-badge">{{ hotel.city.city }}</div>
+        {% else %}
+          <!-- Placeholder if no image -->
+          <div class="city-badge">{{ hotel.city.city }}</div>
+          <img src="{% static 'images/hotel_placeholder.jpg' %}" alt="No Image" class="hotel-img" />
+        {% endif %}
+        <div class="card-body">
+          <h5 class="hotel-name">{{ hotel.name }}</h5>
+          <p class="hotel-location">📍 {{ hotel.city.city }}</p>
+          <p class="hotel-price">💰 Rs. {{ hotel.price }}</p>
+
+          <form method="post" action="{% url 'booking_page' hotel.id %}">
+            {% csrf_token %}
+            <input type="number" name="quantity" value="1" min="1" class="form-control quantity-input" aria-label="Quantity for {{ hotel.name }}">
+            <button type="submit" class="btn btn-add">Add to Cart</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <p class="text-center fs-5 text-muted">No hotels available in this city.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

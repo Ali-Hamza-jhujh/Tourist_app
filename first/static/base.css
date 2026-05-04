@@ -1,0 +1,135 @@
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    nav {
+      background-color: #2c3e50;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      position: relative;
+      z-index: 1000;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .logo {
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 8px 14px;
+      transition: all 0.3s ease;
+      border-radius: 5px;
+    }
+
+    .nav-links a:hover {
+      background-color: #34495e;
+    }
+
+    .btn {
+      font-weight: bold;
+      padding: 8px 15px;
+      border-radius: 8px;
+      transition: 0.3s;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .btn-success {
+      background-color: #27ae60;
+      color: white;
+    }
+
+    .btn-success:hover {
+      background-color: #2ecc71;
+    }
+
+    .btn-danger {
+      background-color: #e74c3c;
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background-color: #c0392b;
+    }
+
+    /* Hamburger */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      height: 3px;
+      width: 26px;
+      background: white;
+      margin: 4px 0;
+      border-radius: 2px;
+      transition: 0.4s;
+    }
+
+    @media screen and (max-width: 768px) {
+      .menu-toggle {
+        display: flex;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background-color: #2c3e50;
+        flex-direction: column;
+        gap: 12px;
+        padding: 20px 0;
+        display: none;
+        animation: slideIn 0.3s ease forwards;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-links a {
+        font-size: 18px;
+        width: 100%;
+        padding: 12px;
+      }
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }

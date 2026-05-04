@@ -1,0 +1,343 @@
+
+
+{% extends 'base.htm' %}
+{% block title %}Peshawar{% endblock %}
+{% block content %}
+{% load static %}
+
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f3f7f3;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 3rem auto;
+    background: #fff;
+    padding: 3rem 2rem 4rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  header h1 {
+    font-size: 3rem;
+    color: #33691e;
+    margin-bottom: 1rem;
+  }
+
+  header p {
+    font-size: 1.2rem;
+    color: #555;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  section.attraction {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-bottom: 4rem;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 2rem;
+  }
+
+  .image-container {
+    flex: 1 1 400px;
+    max-width: 400px;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    transition: transform 0.4s ease;
+  }
+
+  .image-container img {
+    width: 100%;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .image-container:hover img {
+    transform: scale(1.05);
+  }
+
+  .attraction-details {
+    flex: 1 1 500px;
+  }
+
+  .attraction-details h2 {
+    color: #1b5e20;
+    margin-bottom: 0.6rem;
+  }
+
+  .attraction-details p {
+    font-size: 1.1rem;
+    color: #444;
+    line-height: 1.6;
+  }
+
+  .highlight-box {
+    background: linear-gradient(135deg, #c5e1a5, #aed581);
+    padding: 1.5rem;
+    border-radius: 15px;
+    text-align: center;
+    font-weight: 600;
+    font-style: italic;
+    color: #2e7d32;
+    box-shadow: 0 8px 25px rgba(46, 125, 50, 0.15);
+  }
+    #fullscreenModal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    text-align: center;
+  }
+
+  #fullscreenModal img {
+    max-width: 90%;
+    max-height: 90%;
+    margin-top: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(255,255,255,0.2);
+  }
+
+  #fullscreenModal span {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+  }
+</style>
+
+<div class="container">
+  <header>
+    <h1>Explore Peshawar & Beyond</h1>
+    <p>A historical and cultural hub, Peshawar and its surrounding areas offer a treasure trove of heritage, architecture, and regional pride.<p style="color: red; text-align: center; "> To explore more about Peshawar Visit. <a style="color: blue; font-size: 20px; text-align: center;" href="{% url 'chatbot_page' %}">ChatBot</a></p></p>
+  </header>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/alsaint_church.jpg' %}" alt="All Saints' Church" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>All Saints' Church</h2>
+      <p>A beautiful colonial-era Anglican church reflecting the religious harmony of the region.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/bannu.webp' %}" alt="Bannu" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Bannu</h2>
+      <p>A significant city in southern Khyber Pakhtunkhwa known for its markets and cultural roots.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/battagram.webp' %}" alt="Battagram" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Battagram</h2>
+      <p>A peaceful town nestled in the hills, known for its scenic views and welcoming locals.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/buner.webp' %}" alt="Buner" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Buner</h2>
+      <p>A green valley district with archaeological importance and natural beauty.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/chock_yadgar.jpg' %}" alt="Chowk Yadgar" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Chowk Yadgar</h2>
+      <p>A famous memorial in the heart of Peshawar, built to honor martyrs of the 1965 war.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/dera_ismail_khan.webp' %}" alt="Dera Ismail Khan" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Dera Ismail Khan</h2>
+      <p>Often called D.I. Khan, it blends old-world charm with agricultural importance.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/gor_khatri.jpg' %}" alt="Gor Khatri" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Gor Khatri</h2>
+      <p>An ancient site believed to be a Buddhist monastery, now an archaeological complex.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/hangu.webp' %}" alt="Hangu" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Hangu</h2>
+      <p>Known for its cultural richness and traditions, surrounded by tribal heritage.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/karak.webp' %}" alt="Karak" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Karak</h2>
+      <p>A town known for its salt mines and local traditions.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/kybar_pas_gate.jpg' %}" alt="Khyber Pass Gate" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Khyber Pass Gate</h2>
+      <p>A symbolic gateway to the Khyber Pass, marking the ancient trade route to Afghanistan.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/mohabt_khan_mosque.jpg' %}" alt="Mohabat Khan Mosque" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Mohabat Khan Mosque</h2>
+      <p>A stunning white marble Mughal-era mosque in the heart of old Peshawar.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/paswar_musum.jpg' %}" alt="Peshawar Museum" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Peshawar Museum</h2>
+      <p>Hosts one of the richest collections of Gandhara Buddhist art in the world.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/qava_house.jpg' %}" alt="Qava House" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Qava House</h2>
+      <p>A traditional-style house with intricate Peshawari woodwork.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/qila_bala_hisar.jpg' %}" alt="Qila Bala Hisar" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Qila Bala Hisar</h2>
+      <p>The fortress of kings, it stands as a sentinel over Peshawar city.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/qisa_khani_bazar.jpg' %}" alt="Qissa Khwani Bazaar" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Qissa Khwani Bazaar</h2>
+      <p>Historically called the market of storytellers; a hub of trade and culture.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/sethi_musum.webp' %}" alt="Sethi Museum" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Sethi Museum</h2>
+      <p>Preserves the heritage of the Sethi family, showing fine art, furniture, and lifestyle.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/sethi.jpg' %}" alt="Sethi House" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Sethi House</h2>
+      <p>A prime example of Peshawari architecture with ornately carved wood and traditional design.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/truck_workshop.jpg' %}" alt="Truck Art Workshop" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Truck Art Workshop</h2>
+      <p>Witness the vibrant tradition of Pakistani truck art up close and personal.</p>
+    </div>
+  </section>
+
+  <section class="highlight-box">
+    <p>Discover the soul of the region through its monuments, markets, and mountain passes.</p>
+    <h6>CEO: Ali Hamza</h6>
+  </section>
+</div>
+
+<div id="fullscreenModal">
+  <span onclick="closeModal()">&times;</span>
+  <img id="modalImage" src="" alt="Fullscreen Image">
+</div>
+<script>
+  function modelimage(imgElement) {
+    const modal = document.getElementById("fullscreenModal");
+    const modalImg = document.getElementById("modalImage");
+    modal.style.display = "block";
+    modalImg.src = imgElement.src;
+  }
+
+  function closeModal() {
+    document.getElementById("fullscreenModal").style.display = "none";
+  }
+
+  document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+      closeModal();
+    }
+  });
+</script> 
+{% endblock %}

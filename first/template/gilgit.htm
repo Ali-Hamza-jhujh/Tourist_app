@@ -1,0 +1,298 @@
+{% extends 'base.htm' %}
+{% block content %}
+{% load static %}
+
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #ede7f6;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 3rem auto;
+    background: #fff;
+    padding: 3rem 2rem 4rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  header h1 {
+    font-size: 3rem;
+    color: #6a1b9a;
+    margin-bottom: 1rem;
+  }
+#fullscreenModal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    text-align: center;
+  }
+
+  #fullscreenModal img {
+    max-width: 90%;
+    max-height: 90%;
+    margin-top: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(255,255,255,0.2);
+  }
+
+  #fullscreenModal span {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+  }
+  header p {
+    font-size: 1.2rem;
+    color: #555;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  section.attraction {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-bottom: 4rem;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 2rem;
+  }
+
+  .image-container {
+    flex: 1 1 400px;
+    max-width: 400px;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    transition: transform 0.4s ease;
+  }
+
+  .image-container img {
+    width: 100%;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .image-container:hover img {
+    transform: scale(1.05);
+  }
+
+  .attraction-details {
+    flex: 1 1 500px;
+  }
+
+  .attraction-details h2 {
+    color: #4a148c;
+    margin-bottom: 0.6rem;
+  }
+
+  .attraction-details p {
+    font-size: 1.1rem;
+    color: #444;
+    line-height: 1.6;
+  }
+
+  .highlight-box {
+    background: linear-gradient(135deg, #d1c4e9, #b39ddb);
+    padding: 1.5rem;
+    border-radius: 15px;
+    text-align: center;
+    font-weight: 600;
+    font-style: italic;
+    color: #4a148c;
+    box-shadow: 0 8px 25px rgba(74, 20, 140, 0.15);
+  }
+      #fullscreenModal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    text-align: center;
+  }
+
+  #fullscreenModal img {
+    max-width: 90%;
+    max-height: 90%;
+    margin-top: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(255,255,255,0.2);
+  }
+
+  #fullscreenModal span {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+  }
+</style>
+
+<div class="container">
+  <header>
+    <h1>Top Tourist Attractions in Gilgit, Pakistan</h1>
+    <p>Gilgit is a gateway to some of Pakistan’s most breathtaking mountain ranges and valleys. Rich in culture and surrounded by towering peaks, it's a dream destination for nature lovers and adventurers.<p style="color: red; text-align: center; "> To explore more about Gilgit Visit. <a style="color: blue; font-size: 20px; text-align: center;" href="{% url 'chatbot_page' %}">ChatBot</a></p></p>
+  </header>
+
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/karakoram-highway.jpg' %}" alt="Karakoram Highway" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Karakoram Highway</h2>
+      <p>Often referred to as the Eighth Wonder of the World, this highway passes through Gilgit and offers incredible views of the Karakoram Range.</p>
+    </div>
+  </section>
+
+  <!-- New Manually Added Attractions -->
+  <section class="attraction">
+    <div class="image-container">
+      <img  src="{% static 'images/barino.jpg' %}" alt="Barino Village" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Barino Village</h2>
+      <p>A hidden gem with natural streams and wooden houses surrounded by peaceful pastures, perfect for serene exploration.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img  src="{% static 'images/bugratvalley.jpg' %}" alt="Bugrat Valley" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Bugrat Valley</h2>
+      <p>A stunning green valley surrounded by rugged mountains and ideal for camping, hiking, and nature walks.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img  src="{% static 'images/junctionoftree.jpg' %}" alt="Junction of Three Mountain Ranges" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Junction of Three Mountain Ranges</h2>
+      <p>A spectacular point near Gilgit where the Karakoram, Himalayas, and Hindu Kush mountain ranges meet.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img  src="{% static 'images/chinese.jpg' %}" alt="Chinese Graveyard" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Chinese Graveyard</h2>
+      <p>A historic memorial site honoring the Chinese workers who lost their lives during the construction of the Karakoram Highway.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img  src="{% static 'images/firozalack.jpg' %}" alt="Firoza Lake" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Firoza Lake</h2>
+      <p>A mesmerizing turquoise-colored lake nestled in the mountains, known for its reflection and peaceful surroundings.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img  src="{% static 'images/karghabudha.jpg' %}" alt="Kargah Buddha" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Kargah Buddha</h2>
+      <p>An ancient rock carving of Buddha dating back to the 7th century, carved into a cliff face near Gilgit.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img  src="{% static 'images/kutwallack.jpg' %}" alt="Kutwal Lake" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Kutwal Lake</h2>
+      <p>Located in Haramosh Valley, this high-altitude lake is surrounded by glaciers and dramatic peaks, perfect for trekkers.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img  src="{% static 'images/naltervalley.jpg' %}" alt="Nalter Valley Winter" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Nalter Valley (Winter View)</h2>
+      <p>A snowy paradise in winter offering skiing, frozen lakes, and surreal landscapes that attract thrill-seekers and photographers.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img  src="{% static 'images/starngiwal.jpg' %}" alt="Starngiwal" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Sherqilla (Starngiwal)</h2>
+      <p>A beautiful village with orchards and traditional homes along the Ghizer River — great for cultural experiences.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img  src="{% static 'images/tagmughal.jpg' %}" alt="Tagmughal Valley" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Tagmughal Valley</h2>
+      <p>A lesser-known paradise offering untouched beauty, vibrant meadows, and panoramic mountain views away from the crowd.</p>
+    </div>
+  </section>
+
+  <section class="highlight-box">
+    <p><strong>Visit Gilgit:</strong> From ancient forts to alpine lakes and world-class mountain views — Gilgit is where history and nature meet!</p>
+    <h6>CEO: Ali hamza </h6>
+  </section>
+</div>
+<div id="fullscreenModal">
+  <span onclick="closeModal()">&times;</span>
+  <img id="modalImage" src="" alt="Fullscreen Image">
+</div>
+<script>
+  function modelimage(imgElement) {
+    const modal = document.getElementById("fullscreenModal");
+    const modalImg = document.getElementById("modalImage");
+    modal.style.display = "block";
+    modalImg.src = imgElement.src;
+  }
+
+  function closeModal() {
+    document.getElementById("fullscreenModal").style.display = "none";
+  }
+
+  document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+      closeModal();
+    }
+  });
+</script>
+{% endblock %}

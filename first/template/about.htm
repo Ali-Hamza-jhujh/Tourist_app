@@ -1,0 +1,60 @@
+{% extends 'base.htm' %}
+{% block title %}About Page{% endblock %}
+{% block content %}
+{% load static %}
+
+<div style="background-color: #e8f8f5; padding: 60px 20px; text-align: center;color: white;">
+  <h1 style="color: #2c3e50;">About Our Tourism App</h1>
+  <p style="color: #555; font-size: 18px;">Your trusted companion for exploring Pakistan’s hidden gems.<p style="color: red;"> To explore more about Us Visit.</p> <a style="color: blue; font-size: 20px;" href="{% url 'chatbot_page' %}">ChatBot</a></p>
+</div>
+<div class="container" style="max-width: 900px; margin: 60px auto;">
+  <h2 style="color: #27ae60;">Who We Are</h2>
+  <p style="margin-top: 10px; line-height: 1.8; color: white;">
+    We are a dedicated team of explorers, developers, and storytellers passionate about helping tourists explore the beauty of Pakistan. From mountain peaks to bustling cities, we aim to provide a reliable platform with travel guides, local insights, booking info, and cultural highlights.
+  </p>
+</div>
+<div class="container" style="max-width: 900px; margin: 40px auto; display: flex; flex-wrap: wrap; gap: 30px;">
+  <div style="flex: 1; min-width: 280px; background: #f9f9f9; padding: 25px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.05);">
+    <h3 style="color: #2980b9;">🎯 Our Mission</h3>
+    <p style="color: #555;">To simplify tourism through technology by offering trusted, up-to-date travel resources for local and international visitors.</p>
+  </div>
+  <div style="flex: 1; min-width: 280px; background: #f9f9f9; padding: 25px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.05);">
+    <h3 style="color: #2980b9;">🌍 Our Vision</h3>
+    <p style="color: #555;">To become the most reliable and widely used tourism platform in Pakistan by making travel more accessible and informed.</p>
+  </div>
+</div>
+<div class="container" style="max-width: 900px; margin: 60px auto;">
+  <h2 style="color: white; text-align: center;">Why Choose Us?</h2>
+  <ul style="list-style-type: square; padding-left: 30px; margin-top: 20px; color: white;">
+    <li>📍 Real-time location-based suggestions</li>
+    <li>🧳 Recommendations for food, hotels, and spots</li>
+    <li>🛡️ Tourist safety tips and local laws</li>
+    <li>📷 Photographic galleries of popular areas</li>
+    <li>🤝 Collaboration with local tourism departments</li>
+    <li>💬 Multilingual support and guides</li>
+  </ul>
+</div>
+<div class="container" style="max-width: 900px; margin: 60px auto;">
+  <h2 style="text-align: center; color: white;">Meet Our Team</h2>
+  <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 30px;">
+    <div style="background: #ffffff; padding: 20px; border-radius: 10px; width: 200px; box-shadow: 0 0 8px rgba(0,0,0,0.05); text-align: center;">
+      <img src="{% static 'images/hamza.png' %}" style="border-radius: 50%; margin-bottom: 10px;width:150px;" alt="Team member">
+      <h4>Ali Hamza</h4>
+      <p style="font-size: 14px; color: #777;">Founder & Developer</p>
+    </div>
+    <div style="background: #ffffff; padding: 20px; border-radius: 10px; width: 200px; box-shadow: 0 0 8px rgba(0,0,0,0.05); text-align: center;">
+<img src="{% static 'images/zain.jpg' %}" alt="Team member" style="width:150px; height:150px; border-radius:50%;">
+      <h4>Ali Zain</h4>
+      <p style="font-size: 14px; color: #777;">Tour Guide Expert</p>
+    </div>
+  </div>
+</div>
+
+<div style="background-color: #f5f5f5; padding: 40px 20px; text-align: center; color: #555;">
+  <h3>Want to Join or Partner With Us?</h3>
+  <p style="margin-bottom: 20px;">We welcome contributors, local tour guides, and tourism agencies to grow this platform together.</p>
+  <a href="{% url 'contact_page' %}" class="btn btn-success" style="padding: 10px 25px;">Contact Us</a>
+</div>
+
+
+{% endblock %}

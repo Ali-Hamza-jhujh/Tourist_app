@@ -1,0 +1,107 @@
+{% extends 'base.htm' %}
+{% block title %}Add hotel{% endblock %}
+{% block content %}
+
+<style>
+  body {
+    background: linear-gradient(to right, #dbeafe, #e0f2fe);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .form-container {
+    max-width: 600px;
+    margin: 40px auto;
+    background: #ffffff;
+    padding: 40px 30px;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .form-container h2 {
+    text-align: center;
+    color: #1e3a8a;
+    margin-bottom: 30px;
+    font-size: 26px;
+    border-bottom: 2px solid #e0e7ff;
+    padding-bottom: 10px;
+  }
+
+  .form-container label {
+    display: block;
+    font-weight: 600;
+    margin: 12px 0 6px;
+    color: #374151;
+  }
+
+  .form-container input,
+  .form-container textarea,
+  .form-container select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+  }
+
+  .form-container input:focus,
+  .form-container textarea:focus,
+  .form-container select:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+  }
+
+  .form-container button {
+    background: #2563eb;
+    color: #ffffff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 20px;
+    width: 100%;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background 0.3s ease-in-out;
+  }
+
+  .form-container button:hover {
+    background: #1d4ed8;
+  }
+</style>
+
+<div class="form-container">
+  <h2>Add Hotel Information</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <label>Hotel Name:</label>
+    <input type="text" name="name" required>
+
+    <label>Select City:</label>
+    <select name="city" required>
+      {% for city in cities %}
+        <option value="{{ city.id }}">{{ city.city }}</option>
+      {% endfor %}
+    </select>
+
+    <label>Hotel Description:</label>
+    <textarea name="description" rows="4" required></textarea>
+
+    <label>Price per Night (PKR):</label>
+    <input type="number" name="price" required>
+
+    <label>Contact Info:</label>
+    <input type="text" name="contact" required>
+
+    <label>Hotel link</label>
+    <input type="url" name="location_url">
+
+    <label>Hotel Image:</label>
+    <input type="file" name="image" required>
+
+    <button type="submit">Add Hotel</button>
+  </form>
+</div>
+{% endblock %}

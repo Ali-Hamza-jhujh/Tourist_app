@@ -1,0 +1,280 @@
+{% extends 'base.htm' %}
+{% block title %}Naran{% endblock %}
+{% block content %}
+{% load static %}
+
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #e1f5fe;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 3rem auto;
+    background: #fff;
+    padding: 3rem 2rem 4rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  header h1 {
+    font-size: 3rem;
+    color: #0277bd;
+    margin-bottom: 1rem;
+  }
+
+  header p {
+    font-size: 1.2rem;
+    color: #555;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  section.attraction {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-bottom: 4rem;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 2rem;
+  }
+
+  .image-container {
+    flex: 1 1 400px;
+    max-width: 400px;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    transition: transform 0.4s ease;
+  }
+
+  .image-container img {
+    width: 100%;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .image-container:hover img {
+    transform: scale(1.05);
+  }
+
+  .attraction-details {
+    flex: 1 1 500px;
+  }
+
+  .attraction-details h2 {
+    color: #01579b;
+    margin-bottom: 0.6rem;
+  }
+
+  .attraction-details p {
+    font-size: 1.1rem;
+    color: #444;
+    line-height: 1.6;
+  }
+
+  .highlight-box {
+    background: linear-gradient(135deg, #b3e5fc, #4fc3f7);
+    padding: 1.5rem;
+    border-radius: 15px;
+    text-align: center;
+    font-weight: 600;
+    font-style: italic;
+    color: #01579b;
+    box-shadow: 0 8px 25px rgba(1, 87, 155, 0.15);
+  }
+     #fullscreenModal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    text-align: center;
+  }
+
+  #fullscreenModal img {
+    max-width: 90%;
+    max-height: 90%;
+    margin-top: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(255,255,255,0.2);
+  }
+
+  #fullscreenModal span {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+  }
+</style>
+
+<div class="container">
+  <header>
+    <h1>Top Tourist Attractions in Naran, Pakistan</h1>
+    <p>Naran is a popular tourist destination nestled in the Kaghan Valley. Known for its alpine beauty, glacial lakes, and scenic mountain trails, it offers a perfect retreat into nature.<p style="color: red; text-align: center; "> To explore more about Kaghan Visit. <a style="color: blue; font-size: 20px; text-align: center;" href="{% url 'chatbot_page' %}">ChatBot</a></p></p>
+  </header>
+
+
+
+
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/dudipatsar_lake.jpg' %}" alt="Dudipatsar Lake" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Dudipatsar Lake</h2>
+      <p>This "Queen of Lakes" is known for its icy blue water and green meadows. A remote trekking gem for nature lovers.</p>
+    </div>
+  </section>
+
+
+
+  <!-- New Attractions -->
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/babusar_top.jpg' %}" alt="Babusar Top" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Babusar Top</h2>
+      <p>At 13,700 ft above sea level, Babusar Top offers panoramic views of snowy peaks and connects Kaghan Valley with Gilgit-Baltistan.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/Jalkhad2.jpg' %}" alt="Jalkhad 2" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Jalkhad 2</h2>
+      <p>Another viewpoint near Jalkhad, popular for its scenic camping areas, streams, and stunning green landscapes.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/kiwai_waterfall.jpg' %}" alt="Kiwai Waterfall" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Kiwai Waterfall</h2>
+      <p>A beautiful waterfall on the way to Naran, often used as a refreshing rest spot with natural beauty and roadside dhabas.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/lalazar_meadows.jpg' %}" alt="Lalazar Meadows" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Lalazar Meadows</h2>
+      <p>Known for its lush green slopes, wildflowers, and views of snow-covered peaks, Lalazar is a high-altitude paradise near Naran.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/lulusar_lake.jpg' %}" alt="Lulusar Lake" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Lulusar Lake</h2>
+      <p>One of the largest lakes in Kaghan Valley, Lulusar is a sparkling body of water surrounded by majestic mountains and untouched nature.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/nar33.jpg' %}" alt="Naran Valley" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Naran Valley</h2>
+      <p>The main town itself is a hub of activity with markets, hotels, eateries, and serves as the basecamp for nearby attractions.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/saral_lake.jpg' %}" alt="Saral Lake" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Saral Lake</h2>
+      <p>Accessible via a rugged trek, Saral Lake is a hidden alpine gem with tranquil surroundings and glacial charm.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/Saifulmalook_lake.jpg' %}" alt="Saiful Malook Lake" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Saiful Malook Lake (Close-up)</h2>
+      <p>This closer view highlights the crystal-clear waters, mythical ambiance, and captivating reflections of Malika Parbat.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/sharan_forest.jpg' %}" alt="Sharan Forest" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Sharan Forest</h2>
+      <p>A serene pine forest known for eco-camping, wooden huts, and peaceful walks amid chirping birds and forest mist.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/Shogran4.jpg' %}" alt="Sogran Valley" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Sogran Valley</h2>
+      <p>A lesser-known hidden valley featuring lush hills, wooden cabins, and a tranquil escape from the crowded tourist zones.</p>
+    </div>
+  </section>
+
+  <section class="highlight-box">
+    <p><strong>Visit Naran:</strong> From tranquil lakes to majestic mountains — every corner of Naran is a story waiting to be explored!</p>
+    <h6>CEO: Ali hamza </h6>
+  </section>
+</div>
+<div id="fullscreenModal">
+  <span onclick="closeModal()">&times;</span>
+  <img id="modalImage" src="" alt="Fullscreen Image" onclick="modelimage(this)">
+</div>
+
+<script>
+  function modelimage(imgElement) {
+    const modal = document.getElementById("fullscreenModal");
+    const modalImg = document.getElementById("modalImage");
+    modal.style.display = "block";
+    modalImg.src = imgElement.src;
+  }
+
+  function closeModal() {
+    document.getElementById("fullscreenModal").style.display = "none";
+  }
+
+  document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+      closeModal();
+    }
+  });
+</script>
+ 
+{% endblock %}

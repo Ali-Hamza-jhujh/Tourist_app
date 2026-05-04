@@ -1,0 +1,232 @@
+{% extends 'base.htm' %}
+{% block title %}Lahore{% endblock %}
+{% block content %}
+{% load static %}
+
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f8ff;
+    color: #333;
+    margin: 0; padding: 0;
+  }
+  .container {
+    width: 90%; max-width: 1100px;
+    margin: 3rem auto;
+    background: #fff;
+    padding: 3rem 2rem 4rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: box-shadow 0.3s ease-in-out;
+  }
+  .container:hover { box-shadow: 0 15px 50px rgba(0,0,0,0.2); }
+  header { text-align: center; margin-bottom: 4rem; }
+  header h1 {
+    font-size: 3.2rem; color: #007acc;
+    letter-spacing: 1.2px; margin-bottom: 0.4rem;
+  }
+  header p { font-size: 1.25rem; color: #555; max-width: 700px; margin: 0 auto; line-height: 1.6;}
+  header .meta { margin-top: 0.8rem; font-size: 0.9rem; color: #999; }
+  section.attraction {
+    margin-bottom: 4.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #e0e7f1;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2rem;
+  }
+  section.attraction:last-child { border-bottom: none; }
+  section.attraction h2 {
+    font-size: 2.4rem; margin-bottom: 0.6rem;
+    color: #b7351b;
+    flex-basis: 100%;
+    border-left: 6px solid #e26b24;
+    padding-left: 12px;
+    font-weight: 700;
+    user-select: none; cursor: default;
+  }
+  section.attraction p {
+    font-size: 1.1rem; color: #444;
+    line-height: 1.55;
+    flex: 1 1 480px;
+    user-select: text;
+  }
+  section.attraction h3 {
+    color: #e26b24;
+    margin-top: 1rem;
+    font-weight: 600;
+  }
+  .image-container {
+    flex: 1 1 400px;
+    max-width: 400px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    cursor: pointer;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    user-select: none;
+  }
+  .image-container:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+  }
+  .image-container img { width: 100%; height: auto; display: block; }
+  .highlight-box {
+    margin-top: 4rem;
+    background: linear-gradient(135deg, #ffe7cc, #ffd499);
+    padding: 1.4rem 2rem;
+    border-radius: 20px;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: #b7351b;
+    box-shadow: 0 8px 25px rgba(200, 82, 0, 0.10);
+    text-align: center;
+    user-select: none;
+  }
+  @media (max-width: 920px) {
+    section.attraction { flex-direction: column; gap: 1.8rem; }
+    .image-container, section.attraction p { max-width: 100%; flex-basis: auto; }
+    header p { max-width: 100%; padding: 0 1rem; }
+  }
+   #fullscreenModal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    text-align: center;
+  }
+
+  #fullscreenModal img {
+    max-width: 90%;
+    max-height: 90%;
+    margin-top: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(255,255,255,0.2);
+  }
+
+  #fullscreenModal span {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+  }
+</style>
+
+<div class="container">
+  <header>
+    <h1>Top Tourist Attractions in Lahore, Pakistan</h1>
+    <p>Lahore, the heart of Pakistan, is famous for its rich history, vibrant culture, and breathtaking landmarks. Discover the must-see places in this city of gardens and heritage.<p style="color: red; text-align: center; "> To explore more about Lahore Visit. <a style="color: blue; font-size: 20px; text-align: center;" href="{% url 'chatbot_page' %}">ChatBot</a></p> </p>
+    <div class="meta">August 3, 2025 | VIP Team blog | 8 Comments</div>
+  </header>
+
+  <section class="attraction" id="badshahi-mosque">
+    <h2>Badshahi Mosque: A Royal Marvel</h2>
+    <div class="image-container">
+      <img src="{% static 'images/badshahi-mosque1.jpg' %}" alt="Badshahi Mosque Lahore" onclick="modelimage(this)" />
+    </div>
+    <p>This majestic mosque, a symbol of Mughal grandeur, is Lahore's pride and one of the largest in the world, renowned for its red sandstone and marble masterpieces.</p>
+  </section>
+
+  <section class="attraction" id="lahore-fort">
+    <h2>Lahore Fort: The Regal Citadel</h2>
+    <div class="image-container">
+      <img src="{% static 'images/lahore-fort1.jpg' %}" alt="Lahore Fort" onclick="modelimage(this)" />
+    </div>
+    <p>A UNESCO World Heritage site, this sprawling fort complex holds palaces, halls, and gardens showcasing centuries of Mughal architectural splendor.</p>
+  </section>
+
+  <section class="attraction" id="shalimar-gardens">
+    <h2>Shalimar Gardens: The Mughal Paradise</h2>
+    <div class="image-container">
+      <img src="{% static 'images/shalimar-gardens1.jpg' %}" alt="Shalimar Gardens" onclick="modelimage(this)" />
+    </div>
+    <p>Designed by Emperor Shah Jahan, these terraced gardens with fountains and floral arrangements are a stunning example of Mughal landscape artistry.</p>
+  </section>
+
+  <section class="attraction" id="walled-city">
+    <h2>Walled City of Lahore: Living History</h2>
+    <div class="image-container">
+      <img src="{% static 'images/walled-city1.jpg' %}" alt="Walled City of Lahore" onclick="modelimage(this)" />
+    </div>
+    <p>Explore Lahore’s ancient core where bazaars, traditional havelis, and historic gates tell tales from centuries past in a vibrant cultural tapestry.</p>
+  </section>
+
+  <section class="attraction" id="minar-e-pakistan">
+    <h2>Minar-e-Pakistan: A Symbol of Freedom</h2>
+    <div class="image-container">
+      <img src="{% static 'images/minar-e-pakistan1.jpg' %}" alt="Minar-e-Pakistan" onclick="modelimage(this)" />
+    </div>
+    <p>This towering monument commemorates the Lahore Resolution and stands proud in Iqbal Park, attracting visitors with its striking architecture and panoramic views.</p>
+  </section>
+
+  <section class="attraction" id="wagah-border">
+    <h2>Wagah Border: Patriotic Splendor</h2>
+    <div class="image-container">
+      <img src="{% static 'images/wagah-border1.jpg' %}" alt="Wagah Border Ceremony" onclick="modelimage(this)" />
+    </div>
+    <p>Witness the energetic daily flag-lowering ceremony on the border with India – a vibrant symbol of patriotism and theatrical military precision.</p>
+  </section>
+
+  <section class="attraction" id="lahore-museum">
+    <h2>Lahore Museum: Cultural Treasury</h2>
+    <div class="image-container">
+      <img src="{% static 'images/lahore-museum1.jpg' %}" alt="Lahore Museum" onclick="modelimage(this)" />
+    </div>
+    <p>Visit this museum to see diverse artifacts spanning from Gandhara sculptures to Mughal miniatures, providing deep insights into regional history and art.</p>
+  </section>
+  <section class="attraction" id="wazir-khan-mosque">
+    <h2>Wazir Khan Mosque: Jewel of the Walled City</h2>
+    <div class="image-container">
+      <img src="{% static 'images/wazir-khan-mosque1.jpg' %}" alt="Wazir Khan Mosque" onclick="modelimage(this)" />
+    </div>
+    <p>Known for its stunning faience tile work and intricate frescoes, this 17th-century mosque is one of Lahore's most beautifully decorated monuments.</p>
+  </section>
+
+  <section class="attraction" id="anarkali-bazaar">
+    <h2>Anarkali Bazaar: Shopping and Culinary Delight</h2>
+    <div class="image-container">
+      <img src="{% static 'images/anarkali-bazaar1.jpg' %}" alt="Anarkali Bazaar" onclick="modelimage(this)" />
+    </div>
+    <p>One of the oldest surviving markets in South Asia, Anarkali Bazaar is perfect for shopping traditional crafts, textiles, and enjoying famous Lahori street food.</p>
+  </section>
+
+  <section class="highlight-box">
+    <p><strong>Come Explore Lahore!</strong> From awe-inspiring mosques and forts to colorful bazaars and scenic gardens, Lahore invites every traveler to discover its charm and legacy. Start your adventure today!</p>
+    <h6>CEO: Ali hamza </h6>
+  </section>
+</div>
+
+<div id="fullscreenModal">
+  <span onclick="closeModal()">&times;</span>
+  <img id="modalImage" src="" alt="Fullscreen Image">
+</div>
+
+<script>
+  function modelimage(imgElement) {
+    const modal = document.getElementById("fullscreenModal");
+    const modalImg = document.getElementById("modalImage");
+    modal.style.display = "block";
+    modalImg.src = imgElement.src;
+  }
+
+  function closeModal() {
+    document.getElementById("fullscreenModal").style.display = "none";
+  }
+
+  document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+      closeModal();
+    }
+  });
+</script> onclick="modelimage(this)" 
+{% endblock %}

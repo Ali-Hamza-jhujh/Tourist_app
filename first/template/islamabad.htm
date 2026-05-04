@@ -1,0 +1,276 @@
+{% extends 'base.htm' %}
+{% block title %}Islamabad{% endblock %}
+{% block content %}
+{% load static %}
+
+<style>
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f8ff;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+  a {
+    color: #007acc;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 3rem auto;
+    background: #fff;
+    padding: 3rem 2rem 4rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: box-shadow 0.3s ease-in-out;
+  }
+  .container:hover {
+    box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  header h1 {
+    font-size: 3.2rem;
+    color: #007acc;
+    letter-spacing: 1.2px;
+    margin-bottom: 0.4rem;
+  }
+  header p {
+    font-size: 1.25rem;
+    color: #555;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  header .meta {
+    margin-top: 0.8rem;
+    font-size: 0.9rem;
+    color: #999;
+  }
+
+  section.attraction {
+    margin-bottom: 4.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #e0e7f1;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  section.attraction:last-child {
+    border-bottom: none;
+  }
+
+  section.attraction h2 {
+    font-size: 2.4rem;
+    margin-bottom: 0.6rem;
+    color: #005f99;
+    flex-basis: 100%;
+    border-left: 6px solid #007acc;
+    padding-left: 12px;
+    font-weight: 700;
+    user-select: none;
+    cursor: default;
+  }
+  section.attraction p {
+    font-size: 1.1rem;
+    color: #444;
+    line-height: 1.55;
+    flex: 1 1 480px;
+    user-select: text;
+  }
+  section.attraction h3 {
+    color: #006bb3;
+    margin-top: 1rem;
+    font-weight: 600;
+  }
+
+  .image-container {
+    flex: 1 1 400px;
+    max-width: 400px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    cursor: pointer;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    user-select: none;
+  }
+  .image-container:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+  }
+  .image-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .highlight-box {
+    margin-top: 4rem;
+    background: linear-gradient(135deg, #cce7ff, #99cefb);
+    padding: 1.4rem 2rem;
+    border-radius: 20px;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: #004080;
+    box-shadow: 0 8px 25px rgba(0, 100, 190, 0.15);
+    text-align: center;
+    user-select: none;
+  }
+
+  /* Responsive */
+  @media (max-width: 920px) {
+    section.attraction {
+      flex-direction: column;
+      gap: 1.8rem;
+    }
+    .image-container, section.attraction p {
+      max-width: 100%;
+      flex-basis: auto;
+    }
+    header p {
+      max-width: 100%;
+      padding: 0 1rem;
+    }
+  }
+    #fullscreenModal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    text-align: center;
+  }
+
+  #fullscreenModal img {
+    max-width: 90%;
+    max-height: 90%;
+    margin-top: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(255,255,255,0.2);
+  }
+
+  #fullscreenModal span {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+  } 
+</style>
+
+<div class="container">
+  <header>
+    <h1>Top Tourist Attractions in Islamabad, Pakistan</h1>
+    <p>Islamabad, the capital city of Pakistan, is known for its beautiful landscapes, diverse culture, and rich history. This city blends modern amenities with natural beauty, making it a magnet for travelers worldwide.<p style="color: red; text-align: center; "> To explore more about Islamabad Visit. <a style="color: blue; font-size: 20px; text-align: center;" href="{% url 'chatbot_page' %}">ChatBot</a></p></p>
+    <div class="meta">June 11, 2023 | VIP Team blog | 8 Comments</div>
+  </header>
+
+  <section class="attraction" id="faisal-mosque">
+    <h2>Faisal Mosque: The Iconic Landmark</h2>
+    <div class="image-container">
+      <img src="{% static 'images/faisal-mosque1.jpg' %}" alt="Faisal Mosque Exterior" onclick="modelimage(this)" />
+    </div>
+    <p>As one of the largest mosques in the world, Faisal Mosque is a must-visit attraction in Islamabad. Built in the late 1970s, its unique design resembles a Bedouin tent, making it an architectural marvel and an iconic symbol of the city.</p>
+    <h3>Visiting Hours and Entry Fees</h3>
+    <p>The mosque is open throughout the week with no entry fee. Visitors are welcome to observe daily prayers from designated areas. Modest dress and head covering are required.</p>
+  </section>
+
+  <section class="attraction" id="lok-virsa-museum">
+    <h2>Lok Virsa Museum: Discovering the Cultural Heritage of Pakistan</h2>
+    <div class="image-container">
+      <img src="{% static 'images/lok-virsa1.jpg' %}" alt="Lok Virsa Museum Exhibit" onclick="modelimage(this)" />
+    </div>
+    <p>The Lok Virsa Museum showcases Pakistan’s diverse cultural heritage through traditional costumes, handicrafts, musical instruments, and more. It is a treasure trove for history and culture enthusiasts.</p>
+    <h3>Exhibits and Special Events</h3>
+    <p>Thematic displays include truck art, pottery, and textiles. The museum hosts festivals like Lok Mela, featuring music, dance, handicrafts, and food from across Pakistan.</p>
+  </section>
+
+  <section class="attraction" id="rawal-lake">
+    <h2>Rawal Lake: A Serene Escape in the Heart of the City</h2>
+    <div class="image-container">
+      <img src="{% static 'images/rawal-lake1.jpg' %}" alt="Rawal Lake Water" onclick="modelimage(this)" />
+    </div>
+    <p>Rawal Lake is a man-made oasis surrounded by green hills, offering boating, fishing, and peaceful nature escapes right inside the city limits.</p>
+    <h3>Dining and Recreation</h3>
+    <p>Enjoy meals at cafes overlooking the lake or picnic on its banks while soaking in the scenic beauty.</p>
+  </section>
+
+  <section class="attraction" id="islamabad-zoo">
+    <h2>Islamabad Zoo: An Exciting Day Out with Family</h2>
+    <div class="image-container">
+      <img src="{% static 'images/islamabad-zoo1.jpg' %}" alt="Lion at Islamabad Zoo" onclick="modelimage(this)" />
+    </div>
+    <p>Home to over 200 species, Islamabad Zoo is a vibrant place for families, featuring numerous animal exhibits and fun activities for children.</p>
+    <h3>Activities for All Ages</h3>
+    <p>Train rides, pony and camel rides, plus a petting zoo make it an interactive experience for kids and adults alike.</p>
+  </section>
+
+  <section class="attraction" id="pakistan-monument-museum">
+    <h2>Pakistan Monument Museum: Celebrating History & Architecture</h2>
+    <div class="image-container">
+      <img src="{% static 'images/pakistan-monument1.jpg' %}" alt="Pakistan Monument Exterior" onclick="modelimage(this)" />
+    </div>
+    <p>Located at the Shakarparian Hills, the Pakistan Monument Museum features eight granite petals representing Pakistan’s provinces, with stunning architectural details and cultural exhibits.</p>
+    <h3>Architecture and Exhibits</h3>
+    <p>The museum blends traditional Islamic and contemporary styles, with artifacts, calligraphy, and artworks celebrating Pakistan’s heritage.</p>
+  </section>
+
+  <section class="attraction" id="pir-sohawa">
+    <h2>Pir Sohawa: A Scenic Hill Station with a View of the City</h2>
+    <div class="image-container">
+      <img src="{% static 'images/pir-sohawa1.jpg' %}" alt="View from Pir Sohawa" onclick="modelimage(this)" />
+    </div>
+    <p>Situated in the Margalla Hills at 5,000 feet altitude, Pir Sohawa offers breathtaking views and tranquil green surroundings — an ideal escape from the city hustle.</p>
+    <h3>Facilities and Amenities</h3>
+    <p>Facilities include hiking trails, souvenir shops, and access to Monal Restaurant, famed for local and international cuisine with panoramic views.</p>
+  </section>
+
+  <section class="highlight-box">
+    <p><strong>Explore Islamabad’s Beauty:</strong> From history and culture to nature and adventure, Islamabad offers an unforgettable experience for every traveler. Plan your visit today!</p>
+    <h6>CEO: Ali hamza </h6>
+  </section>
+</div>
+
+<div id="fullscreenModal">
+  <span onclick="closeModal()">&times;</span>
+  <img id="modalImage" src="" alt="Fullscreen Image">
+</div>
+
+<script>
+  function modelimage(imgElement) {
+    const modal = document.getElementById("fullscreenModal");
+    const modalImg = document.getElementById("modalImage");
+    modal.style.display = "block";
+    modalImg.src = imgElement.src;
+  }
+
+  function closeModal() {
+    document.getElementById("fullscreenModal").style.display = "none";
+  }
+
+  document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+      closeModal();
+    }
+  });
+</script>
+{% endblock %}

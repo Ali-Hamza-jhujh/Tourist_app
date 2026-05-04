@@ -1,0 +1,274 @@
+{% extends 'base.htm' %}
+{% block title %}Booking Cart - TravelX{% endblock %}
+{% block content %}
+{% load booking_extras %}
+
+<style>
+  body {
+    background: linear-gradient(to right, #e3f2fd, #e8f5e9);
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .cart-container {
+    max-width: 1000px;
+    margin: 60px auto;
+    background: #ffffff;
+    padding: 2.5rem 2rem;
+    border-radius: 18px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .cart-header {
+    font-size: 2.4rem;
+    font-weight: bold;
+    color: #0d47a1;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 18px;
+  }
+
+  thead th {
+    text-align: left;
+    font-size: 1.1rem;
+    color: #455a64;
+    border-bottom: 2px solid #1e88e5;
+    padding-bottom: 12px;
+  }
+
+  tbody tr {
+    background-color: #fafafa;
+    border-radius: 12px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.07);
+    transition: transform 0.2s;
+    animation: fadeIn 0.3s ease-in;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  tbody tr:hover {
+    transform: translateY(-4px);
+    background-color: #f1f8e9;
+  }
+
+  tbody td {
+    padding: 16px 12px;
+    color: #37474f;
+    font-size: 1rem;
+    vertical-align: middle;
+  }
+
+  .btn-danger {
+    background: #e53935;
+    color: white;
+    padding: 6px 16px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 12px rgba(229, 57, 53, 0.3);
+    transition: background 0.3s;
+  }
+
+  .btn-danger:hover {
+    background: #c62828;
+  }
+
+  .total-price-box {
+    margin-top: 25px;
+    padding: 20px;
+    background: #d0f0c0;
+    border-left: 6px solid #388e3c;
+    font-size: 1.4rem;
+    font-weight: bold;
+    text-align: right;
+    color: #1b5e20;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+  }
+
+  .transaction-box {
+    margin-top: 20px;
+    padding: 16px 20px;
+    background: #fff3e0;
+    border-left: 6px solid #ffa726;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ef6c00;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(255, 167, 38, 0.2);
+  }
+
+  .trx-id {
+    font-family: monospace;
+    background: #ffe0b2;
+    padding: 6px 14px;
+    border-radius: 6px;
+    margin-left: 10px;
+    border: 1px dashed #ffb74d;
+  }
+
+  .btn-proceed {
+    display: block;
+    width: 100%;
+    margin-top: 30px;
+    padding: 18px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(to right, #00c853, #43a047);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .btn-proceed:hover {
+    background: linear-gradient(to right, #43a047, #1b5e20);
+    transform: translateY(-2px);
+    text-decoration: none;
+  }
+
+  .empty-cart {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #777;
+    padding: 60px 20px;
+  }
+
+  .btn-browse {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 28px;
+    color: #1e88e5;
+    border: 2px solid #1e88e5;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 10px;
+    transition: all 0.3s;
+    text-decoration: none;
+  }
+
+  .btn-browse:hover {
+    background: #1e88e5;
+    color: white;
+    text-decoration: none;
+  }
+
+  @media (max-width: 768px) {
+    table, thead, tbody, th, td, tr {
+      display: block;
+    }
+
+    thead {
+      display: none;
+    }
+
+    tbody tr {
+      margin-bottom: 15px;
+      border-radius: 10px;
+      padding: 12px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    tbody td {
+      padding: 10px 10px;
+      text-align: left;
+      position: relative;
+    }
+
+    tbody td::before {
+      content: attr(data-label);
+      font-weight: bold;
+      display: block;
+      color: #607d8b;
+      margin-bottom: 5px;
+    }
+
+    .btn-proceed {
+      font-size: 1.1rem;
+      padding: 14px;
+    }
+  }
+</style>
+
+<div class="cart-container">
+  <h2 class="cart-header">🛒 Your Booking Cart</h2>
+
+  {% if hotels_with_qty %}
+  <table>
+    <thead>
+      <tr>
+        <th>Hotel</th>
+        <th>City</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for hotel, qty in hotels_with_qty %}
+      <tr>
+        <td data-label="Hotel">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <img src="{{ hotel.image.url }}" style="width:60px; height:60px; object-fit:cover; border-radius:8px;">
+            <span>{{ hotel.name }}</span>
+          </div>
+        </td>
+        <td data-label="City">{{ hotel.city.city }}</td>
+        <td data-label="Price">Rs {{ hotel.price|currency }}</td>
+        <td data-label="Quantity">{{ qty }}</td>
+        <td data-label="Subtotal">Rs {{ hotel.price|mul:qty|currency }}</td>
+        <td data-label="Action">
+          <form method="post" action="{% url 'delete_page' hotel.id %}" onsubmit="return confirm('Remove this hotel?');">
+            {% csrf_token %}
+            <button class="btn btn-sm btn-danger" type="submit">Remove</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="total-price-box">
+    {% calc_total hotels_with_qty as total %}
+    Total: Rs {{ total|currency }}
+  </div>
+
+  {% if request.session.last_transaction_id %}
+  <div class="transaction-box">
+    🧾 Transaction ID:
+    <span class="trx-id">{{ request.session.last_transaction_id }}</span>
+  </div>
+  {% endif %}
+
+  <form method="post" action="{% url 'initiate_payment' %}">
+    {% csrf_token %}
+    <button type="submit" class="btn-proceed">Proceed to Payment ✅</button>
+  </form>
+
+  {% else %}
+  <div class="empty-cart">
+    <img src="https://cdn-icons-png.flaticon.com/512/2038/2038854.png" width="180">
+    <p>Your cart is currently empty.</p>
+    {% if city_id %}
+    <a href="{% url 'hostel_view' city_id %}" class="btn-browse">Browse Hotels</a>
+    {% else %}
+    <a href="{% url 'dashboard_page' %}" class="btn-browse">Browse Cities</a>
+    {% endif %}
+  </div>
+  {% endif %}
+</div>
+
+{% endblock %}

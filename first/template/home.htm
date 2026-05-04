@@ -1,0 +1,82 @@
+{% extends 'base.htm' %}
+{% block title %}Home{% endblock %}
+{% block style %}
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      animation: bgChange 40s infinite;
+    }
+    a{
+      cursor:pointer;
+    }
+
+    @keyframes bgChange {
+      0%   { background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e'); }
+      20%  { background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb'); }
+      40%  { background-image: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee'); }
+      60%  { background-image: url('https://images.unsplash.com/photo-1470770903676-69b98201ea1c'); }
+      80%  { background-image: url('https://images.unsplash.com/photo-1501785888041-af3ef285b470'); }
+      100% { background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e'); }
+    }
+
+    .overlay {
+      background: rgba(0, 0, 0, 0.5);
+      padding: 100px 30px;
+      color: white;
+      min-height: 100vh;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <div class="overlay">
+  <section style="text-align: center; padding-top: 100px;">
+    <h1 style="font-size: 3em; margin-bottom: 20px;">Discover Your Next Adventure</h1>
+    <p style="font-size: 1.4em; margin-bottom: 30px;">Explore breathtaking destinations, hidden gems, and cultural wonders around the globe.<p style="color: red; text-align: center; margin-bottom: 30px; "> To explore more about Hunza Visit. <a style="color: blue; font-size: 20px; text-align: center;" href="{% url 'chatbot_page' %}">ChatBot</a></p></p>
+    <a href="{% url 'register_page' %}" class="btn btn-success" style="margin-right: 10px;cursor: pointer;">Get Started</a>
+    {% if user.is_authenticated %}
+    <a href="{% url 'dashboard_page' %}" class="btn btn-danger" style="cursor: pointer;">Learn More</a>
+    {% else %}
+    <a href="{% url 'login_page' %}" class="btn btn-danger"style="cursor: pointer;">Learn More</a>
+   {% endif %}
+  </section>
+
+  <section id="features" style="margin-top: 100px; background-color: rgba(145, 118, 118, 0.1); padding: 40px; border-radius: 12px;">
+    <h2 style="text-align: center; margin-bottom: 30px;">Why Choose Tourism App?</h2>
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+      <div style="flex: 1; min-width: 250px; margin: 20px;">
+        <h3>🌍 Explore Destinations</h3>
+        <p>Search by country, city, or region and find places you never knew existed.</p>
+      </div>
+      <div style="flex: 1; min-width: 250px; margin: 20px;">
+        <h3>📸 Share Your Journey</h3>
+        <p>Upload photos, write travel blogs, and inspire other travelers around the world.</p>
+      </div>
+      <div style="flex: 1; min-width: 250px; margin: 20px;">
+        <h3>🎯 Personalized Suggestions</h3>
+        <p>Get destination ideas based on your preferences, location, and travel history.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="margin-top: 80px; text-align: center;">
+    <h2>Join Thousands of Happy Travelers!</h2>
+    <p style="margin: 20px auto; max-width: 600px;">Whether you're a backpacker, family planner, or luxury explorer — Tourism App is your perfect travel companion.</p>
+    {% if not user.is_authenticated %}
+    <a href="{% url 'register_page' %}" class="btn btn-success" style="margin-top: 20px;">Create Free Account</a>
+    {% else %}
+    <a href="{% url 'galary_page' %}" class="btn btn-success" style="margin-top: 20px;">Explore Nature's</a>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

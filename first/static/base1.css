@@ -1,0 +1,38 @@
+.chatcontainer {
+  height: 80vh;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.userchatbox, .aichatbox {
+  display: flex;
+  margin: 10px;
+  align-items: flex-start;
+}
+
+.userchatbox {
+  justify-content: flex-end;
+}
+
+.userchatarea {
+  background: #4f8df7;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 60%;
+}
+
+.aichatarea {
+  background: #e5e5e5;
+  color: black;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 60%;
+}
+
+.chat-avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  margin: 5px;
+}

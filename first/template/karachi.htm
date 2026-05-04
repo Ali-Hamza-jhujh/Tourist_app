@@ -1,0 +1,316 @@
+{% extends 'base.htm' %}
+{% block title %}Karachi{% endblock %}
+{% block content %}
+{% load static %}
+
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f8ff;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 3rem auto;
+    background: #fff;
+    padding: 3rem 2rem 4rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  header h1 {
+    font-size: 3rem;
+    color: #007acc;
+    margin-bottom: 1rem;
+  }
+
+  header p {
+    font-size: 1.2rem;
+    color: #555;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  section.attraction {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-bottom: 4rem;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 2rem;
+  }
+
+  .image-container {
+    flex: 1 1 400px;
+    max-width: 400px;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    transition: transform 0.4s ease;
+  }
+
+  .image-container img {
+    width: 100%;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .image-container:hover img {
+    transform: scale(1.05);
+  }
+
+  .attraction-details {
+    flex: 1 1 500px;
+  }
+
+  .attraction-details h2 {
+    color: #005f99;
+    margin-bottom: 0.6rem;
+  }
+
+  .attraction-details p {
+    font-size: 1.1rem;
+    color: #444;
+    line-height: 1.6;
+  }
+
+  .highlight-box {
+    background: linear-gradient(135deg, #cce7ff, #99cefb);
+    padding: 1.5rem;
+    border-radius: 15px;
+    text-align: center;
+    font-weight: 600;
+    font-style: italic;
+    color: #004080;
+    box-shadow: 0 8px 25px rgba(0, 100, 190, 0.15);
+  }
+  
+  #fullscreenModal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    text-align: center;
+  }
+
+  #fullscreenModal img {
+    max-width: 90%;
+    max-height: 90%;
+    margin-top: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(255,255,255,0.2);
+  }
+
+  #fullscreenModal span {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+  }
+</style>
+
+<div class="container">
+  <header>
+    <h1>Top Tourist Attractions in Karachi, Pakistan</h1>
+    <p>Karachi, the largest city and financial hub of Pakistan, offers a blend of beaches, colonial architecture, historical landmarks, and vibrant street life that attracts visitors from all over the world.<p style="color: red; text-align: center; "> To explore more about Karachi Visit. <a style="color: blue; font-size: 20px; text-align: center;" href="{% url 'chatbot_page' %}">ChatBot</a></p></p>
+  </header>
+
+  {% comment %} Manual attraction entries below {% endcomment %}
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/Clifton_seaview.jpg' %}" alt="Clifton Seaview" onclick="modelimage(this)" >
+    </div>
+    <div class="attraction-details">
+      <h2>Clifton Seaview</h2>
+      <p>Enjoy the sea breeze, horse rides, and scenic sunsets at Clifton Seaview — one of Karachi’s most iconic beachfronts.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/Desert_safaris.jpg' %}" alt="Desert Safaris" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Desert Safaris</h2>
+      <p>Experience thrilling dune bashing and cultural events in the outskirts of Karachi's desert landscape.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/Dolmen_mall.jpg' %}" alt="Dolmen Mall" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Dolmen Mall</h2>
+      <p>A premier shopping and entertainment destination with sea views, global brands, and vibrant food courts.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/Fish_streetseafood.jpg' %}" alt="Fish Street Seafood" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Fish Street Seafood</h2>
+      <p>Known for its fresh seafood and bustling stalls, this is a paradise for food lovers looking to taste Karachi’s coastal cuisine.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/French_beach.jpg' %}" alt="French Beach" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>French Beach</h2>
+      <p>Private and exclusive, French Beach is ideal for snorkeling, kayaking, and peaceful seaside retreats.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/Frere_hall.jpg' %}" alt="Frere Hall" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Frere Hall</h2>
+      <p>Colonial architecture meets art and literature in this historical hall surrounded by gardens and galleries.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/Gorakh_hillstation.jpg' %}" alt="Gorakh Hill Station" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Gorakh Hill Station</h2>
+      <p>Located in the Kirthar range, this hill station offers cool weather, panoramic views, and night camping experiences.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/Jodia_bazar.jpg' %}" alt="Jodia Bazar" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Jodia Bazar</h2>
+      <p>One of the oldest and busiest wholesale markets in Pakistan, offering everything from spices to electronics.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/Manora_island.jpg' %}" alt="Manora Island" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Manora Island</h2>
+      <p>Take a ferry ride to this peaceful island, featuring colonial-era lighthouses, beaches, and fishing communities.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/Mohatta_palace.jpg' %}" alt="Mohatta Palace" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Mohatta Palace</h2>
+      <p>A museum and art gallery housed in a stunning heritage building with Mughal and Rajput influences.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/National_museum.jpg' %}" alt="National Museum" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>National Museum</h2>
+      <p>Home to thousands of artifacts including ancient manuscripts, relics from Mohenjo-daro, and Islamic art.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/Patrick.jpg' %}" alt="St. Patrick’s Cathedral" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>St. Patrick’s Cathedral</h2>
+      <p>A magnificent gothic-style church serving as a landmark of Karachi’s religious and colonial history.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/Port_grand.jpg' %}" alt="Port Grand" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Port Grand</h2>
+      <p>A vibrant waterfront development offering restaurants, shopping, and entertainment along the historic Napier Mole Bridge.</p>
+    </div>
+  </section>
+
+  <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/Quaid_house.jpg' %}" alt="Quaid's House Museum" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Quaid’s House Museum</h2>
+      <p>Preserving the legacy of Quaid-e-Azam, this museum displays his personal belongings and historical artifacts.</p>
+    </div>
+  </section>
+   <section class="attraction">
+    <div class="image-container">
+      <img src="{% static 'images/Saddar_market.jpg' %}" alt="Quaid's House Museum" onclick="modelimage(this)">
+    </div>
+    <div class="attraction-details">
+      <h2>Saddar Market</h2>
+      <p>A lively downtown marketplace filled with colonial-era buildings, diverse shops, food vendors, and local culture.</p>
+    </div>
+  </section>
+
+  
+
+  <section class="highlight-box">
+    <p><strong>Visit Karachi:</strong> A dynamic mix of culture, history, sea breeze, and modern life awaits. Discover Pakistan's city of lights!</p>
+    <h6>CEO: Ali Hamza</h6>
+  </section>
+</div>
+<div id="fullscreenModal">
+  <span onclick="closeModal()">&times;</span>
+  <img id="modalImage" src="" alt="Fullscreen Image">
+</div>
+
+<script>
+  function modelimage(imgElement) {
+    const modal = document.getElementById("fullscreenModal");
+    const modalImg = document.getElementById("modalImage");
+    modal.style.display = "block";
+    modalImg.src = imgElement.src;
+  }
+
+  function closeModal() {
+    document.getElementById("fullscreenModal").style.display = "none";
+  }
+
+  document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+      closeModal();
+    }
+  });
+</script>
+
+{% endblock %}
